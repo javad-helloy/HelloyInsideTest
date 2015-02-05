@@ -1,0 +1,64 @@
+﻿@model InsideReporting.Models.AccountManager.AccountManagerListViewModel
+
+@{
+    ViewBag.Title = "Kontoansvarig";
+    Layout = "/Views/Layout/_SiriusTopMenu.cshtml";
+}
+
+
+
+<script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js"></script>
+    
+<p><a href="@Url.Action("Create", "AccountManager")" class="btn btn-primary">Skapa ny Kontoansvarig</a></p>
+<h2>Kontoansvarig</h2>
+<table id="table" class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.LabelFor(model => model.Collection.FirstOrDefault().Name)
+            </th>
+            <th>
+                @Html.LabelFor(model => model.Collection.FirstOrDefault().Email)
+            </th>
+            <th>
+                @Html.LabelFor(model => model.Collection.FirstOrDefault().Phone)
+            </th>
+
+            <th>
+                @Html.LabelFor(model => model.Collection.FirstOrDefault().ImageUrl)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Collection)
+        {
+            if (item.IsLockedOut)
+            {
+                @:<tr class="danger">
+            }
+            else
+            {
+                @:<tr>
+            }
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Phone)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.ImageUrl)
+            </td>
+            <td>
+                <a href="@Url.Action("Edit", "AccountManager", new {id = item.Id})" title="Ändra"><i class="fa fa-pencil-square-o"></i> </a>
+                <a href="@Url.Action("Delete", "AccountManager", new {id = item.Id})" title="Ta bort"><i class="fa fa-trash-o"></i></a>
+            </td>
+            @:</tr>
+        }
+    </tbody>
+</table>

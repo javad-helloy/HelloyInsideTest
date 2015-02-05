@@ -1,0 +1,267 @@
+﻿@using InsideModel.Models
+@model InsideReporting.Models.Client.ClientsViewModel
+
+@{
+    ViewBag.Title = "Kunder";
+    Layout = "/Views/Layout/_SiriusTopMenu.cshtml";
+}
+
+<!-- DataTables -->
+<style>
+    #table_filter {
+        display: none;
+    }
+</style>
+<script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js"></script>
+
+
+<p><a href="@Url.Action("Create", "Client")" class="btn btn-primary">Skapa ny kund</a></p>
+<h3>Kunder</h3>
+
+<div id="toggle-buttons" style="padding-bottom: 10px;" class="">
+    <div class="dropdown btn-group">
+        <a href="#" class="btn btn-success dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown">
+            Labels <span class="caret"></span>
+        </a>
+        <ul id="labels-drop-down" class="dropdown-menu dropdown-menu-large admin-drop-down" role="menu" aria-labelledby="dropdownMenu1">
+            @foreach (var label in Model.Labels)
+            {
+                <li role="presentation"><a href="#" role="menuitem" data-label-id="@label.Id" data-label-name="@label.Name">@label.Name</a></li>
+            }
+            <li class="divider"></li>
+            <li><a href="/Label">Hantera labels</a></li>
+        </ul>
+    </div>
+    <button id="toggle-columns" class="btn btn-info">Kolumner</button>
+    <button id="toggle-columns" class="btn btn-info">Filter</button>
+    <div class="col-xs-3 pull-right">
+        <input type="text" class="form-control pull-right" id="search-box" placeholder="Sök">
+    </div>
+</div>
+
+<div id="column-filters-container" class="panel panel-default" style="display: none;">
+    <div class="panel-body" id="column-filters">
+
+    </div>
+</div>
+<table id="table" class="table">
+    <thead>
+        <tr>
+            <th data-fixed-column="1">
+                <input type="checkbox" role="toggle-client-select-all">
+            </th>
+            <th data-show-default="1" data-column-name="Inloggning">
+                <p>@Html.LabelFor(model => model.Clients.FirstOrDefault().LastLogin)</p>
+            </th>
+            <th data-show-default="1" data-column-name="Id">
+                <p>@Html.LabelFor(model => model.Clients.FirstOrDefault().Id)</p>
+            </th>
+            <th data-show-default="1" data-column-name="Namn">
+                <p>@Html.LabelFor(model => model.Clients.FirstOrDefault().Name)</p>
+            </th>
+            <th data-show-default="1" data-column-name="Label">
+                <p><label>Labels</label></p>
+            </th>
+            <th data-show-default="1" data-column-name="MK">
+                <p>@Html.Label("MK")</p>
+
+            </th>
+            <th data-show-default="1" data-column-name="AM">
+                <p>@Html.Label("AM")</p>
+
+            </th>
+            <th data-show-default="1" data-column-name="Status">
+                <p>@Html.LabelFor(model => model.Clients.FirstOrDefault().IsActive)</p>
+
+            </th>
+            <th data-show-default="0" data-column-name="Analytics ID">
+                <p>@Html.LabelFor(model => model.Clients.FirstOrDefault().AnalyticsTableId)</p>
+
+            </th>
+            <th data-show-default="0" data-column-name="Email">
+                <p>@Html.LabelFor(model => model.Clients.FirstOrDefault().EmailAddress)</p>
+
+            </th>
+            <th data-show-default="0" data-column-name="Domän">
+                <p>@Html.LabelFor(model => model.Clients.FirstOrDefault().Domain)</p>
+            </th>
+            <th data-show-default="0" data-column-name="CTM Id">
+                <p>@Html.LabelFor(model => model.Clients.FirstOrDefault().CallTrackingMetricId)</p>
+            </th>
+            <th data-show-default="0" data-column-name="Fee Fixed">
+                <p>@Html.LabelFor(model => model.Clients.FirstOrDefault().FeeFixedMonthly)</p>
+            </th>
+            <th data-show-default="0" data-column-name="Fee Percent">
+                <p>@Html.LabelFor(model => model.Clients.FirstOrDefault().FeePercent)</p>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model.Clients) {
+        <tr>
+            <td>
+                <input type="checkbox" role="client-selector" data-client-id="@item.Id">
+            </td>
+            <td style="color:@item.WarningColor">
+                <p>@(item.LastLogin.HasValue ? item.LastLogin.Value.ToString("yyyy-MM-dd") : "-")</p>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                <a href="@Url.Action("Latest", "Cco", new { clientId = item.Id })" title="CCO översikt"><i class="fa fa-magic darker"></i> </a>
+                <a href="@Url.Action("Edit", "Client", new { id = item.Id })" title="Ändra">@Html.DisplayFor(modelItem => item.Name)</a>
+            </td>
+            <td class="labels-container">
+            @foreach (var label in item.Labels)
+            {
+                <div data-label-id="@label.Id"><span class="label label-success admin-label">@label.Name</span></div>
+            }
+            </td>
+            <td>
+                <p>@Html.DisplayFor(modelItem => item.ConsultantName)</p>
+            </td>
+            <td>
+                <p>@Html.DisplayFor(modelItem => item.AccountManagerName)</p>
+            </td>
+            <td>
+                <p> @(item.IsActive != null && (bool) item.IsActive ? "Aktiv" : "Inaktiv")</p>
+            </td>
+            <td>
+                <p>@Html.DisplayFor(modelItem => item.AnalyticsTableId)</p>
+            </td>
+            <td>
+                <p>@Html.Raw(item.EmailAddress == null ? null:item.EmailAddress.Replace(",",", "))</p>
+            </td>
+            <td>
+                <p>@Html.DisplayFor(modelItem => item.Domain)</p>
+            </td>
+            <td>
+                <p>@Html.DisplayFor(modelItem => item.CallTrackingMetricId)</p>
+            </td>
+            <td>
+                <p>@Html.Raw(item.FeeFixedMonthly.ToString("# ##0") + " kr")</p>
+            </td>
+            <td>
+                <p>@Html.Raw(item.FeePercent+ "%")</p>
+            </td>
+        </tr>
+    }
+    <tbody>
+</table>
+<p>
+    <a href="@Url.Action("Index",new {showAllData = true})" class="btn btn-primary">Visa alla</a>
+    <a href="@Url.Action("Index", new { showInactive = true })" class="btn btn-default">Visa inaktiva</a>
+</p>
+
+
+<script type="text/javascript">
+    var that = this;
+    $(function () {
+        $('#search-box').keyup(function () {
+            $('#table').dataTable().fnFilter($(this).val());
+        });
+            
+
+        $('#labels-drop-down a[role="menuitem"]').click(function (e) {
+            e.preventDefault();
+            var clientIds = [];
+            var labelId = $(this).data('label-id');
+            var labelName = $(this).data('label-name');
+            jQuery('[role="client-selector"]').each(function () {
+                if ($(this).is(":checked")) {
+                    clientIds.push($(this).data('client-id'));
+                }
+            });
+
+            $.ajax({
+                type: "POST",
+                url: "/label/set",
+                data: { clientIds: clientIds, labelId: labelId },
+                dataType: "json",
+                traditional: true
+            }).success(function (result) {
+                jQuery('[role="client-selector"]').each(function () {
+                    if ($(this).is(":checked")) {
+                        var labelcontainer = $(this).parents("tr").find(".labels-container");
+                        if (result.addedLabels) {
+                            if (labelcontainer.find('[data-label-id="' + labelId + '"]').length == 0) {
+                                labelcontainer.append('<div data-label-id="' + labelId + '"><span class="label label-success admin-label">' + labelName + '</span></div>');
+                            }
+                        } else {
+                            labelcontainer.find('[data-label-id="' + labelId + '"]').remove();
+                        }
+                    }
+                });
+            }).error(function () {
+                alert("error");
+            });
+        });
+
+        $.fn.redraw = function () {
+            $(this).each(function () {
+                var redraw = this.offsetHeight;
+            });
+        };
+
+        $('[role="toggle-client-select-all"]').change(function () {
+            $('[role="client-selector"]').prop('checked', $(this).is(":checked"));
+        });
+
+        $('#toggle-columns').click(function () {
+            $('#column-filters-container').toggle();
+        });
+        var counter = 0;
+        var columnsToShow = [];
+        jQuery('#table thead th').each(function () {
+            var button = null;
+            if ($(this).data("fixed-column") !== 1) {
+                if ($(this).data("show-default") === 1) {
+
+                    button = jQuery('<a href="#" class="btn btn-small btn-primary" data-btn-num="' + counter + '" type="button" style="margin-right: 2px;">' + $(this).data("column-name") + '</a>');
+                } else {
+                    columnsToShow.push(counter);
+                    button = jQuery('<a href="#" class="btn btn-small btn-default" data-btn-num="' + counter + '" type="button" style="margin-right: 2px;">' + $(this).data("column-name") + '</a>');
+                }
+                button.click(function (e) {
+                    e.stopPropagation();
+                    var index = $(this).attr("data-btn-num");
+
+                    $(this).toggleClass("btn-primary");
+                    $(this).toggleClass("btn-default");
+
+                    jQuery('#column-filters').trigger('create');
+                    var oTable = that.$('#table').dataTable();
+                    var bVis = oTable.fnSettings().aoColumns[index].bVisible;
+                    oTable.fnSetColumnVis(index, bVis ? false : true);
+                });
+
+                $('#column-filters').append(button);
+            }
+            counter++;
+        });
+
+        $('#table').dataTable({
+
+            "bPaginate": false,
+            "bAutoWidth": false,
+            "bInfo": false,
+            "aoColumnDefs": [
+                { "bVisible": false, "aTargets": columnsToShow },
+                { "bSortable": false, "aTargets": [0] }
+            ],
+            "oLanguage": {
+                "sSearch": "Sök: "
+            }
+        });
+
+        $.extend($.fn.dataTableExt.oStdClasses, {
+            "sSortAsc": "header headerSortDown",
+            "sSortDesc": "header headerSortUp",
+            "sSortable": "header"
+        });
+
+
+    });
+
+</script>

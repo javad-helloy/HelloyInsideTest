@@ -1,0 +1,78 @@
+ul.main-menu{
+	padding-left: 0;
+	margin-left: 0;
+	list-style: none;	
+	& li{
+        &.dark{
+            background:@gray-darkest;
+        }
+        &.no-padding>a, &.no-padding>span{
+            padding-right: 2*@padding-large-horizontal; 
+            padding-left: 2*@padding-large-horizontal; 
+            padding-top: 2*@padding-large-horizontal;
+            padding-bottom:0;
+        }
+        &>span{
+            color:@gray-dark;
+            display:block;
+            text-transform:uppercase;
+        }
+		text-align: left;
+		&>a, &>span{
+            padding: 2*@padding-large-vertical 2*@padding-large-horizontal; 
+		}
+        
+        & a{
+			display: block;
+			
+			color:@gray-dark;
+
+			font-family: @font-family-sans-serif-light;
+			font-size: @font-size-h2;
+
+			box-sizing: border-box;
+
+			& i{
+				width: 2*@padding-large-vertical+10px;
+				text-align: center;
+			}
+
+			& span{
+				position: relative;
+			}
+
+			& .badge{
+				background: @helloy-orange;
+				position: absolute;
+				top: -5px;
+				right: -19px;
+				color: white;
+				opacity: 0.8;
+			}
+
+			&.active{
+				color: white;
+				background-position: center right;
+				background-repeat: no-repeat;
+				border-left: 3px solid @helloy-green;
+				& .badge{
+					opacity: 1;
+				}
+			}
+
+			&:hover{
+				background-color: #111;
+				color: white;
+				& .badge{
+					opacity: 1;
+				}
+			}
+		}
+	}
+}
+
+.one-line{
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}

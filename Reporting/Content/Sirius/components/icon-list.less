@@ -1,0 +1,164 @@
+.icon-list{
+    padding-left: 0;
+    list-style: none;
+
+    & .capitalize{
+        text-transform: capitalize;
+    }
+
+	& li{	
+		position:relative;
+		border-bottom: 1px solid @gray-light;
+        padding-left: 55px;
+        padding-top: 25px;
+        padding-bottom: 10px;
+
+		& .top-line{
+			& span{
+				color: darken(@gray-dark, 10%);
+				font-family: @font-family-sans-serif;	
+				&.label{
+					color:white;
+				}
+			}
+		}
+
+		& .bottom-line{
+			& span{
+				font-family: @font-family-sans-serif-light;	
+			}
+
+			& .fa{
+				color: @gray;
+			}
+		}
+        & .item-icon{
+            color: @gray-light;
+        }
+        & .select-icon{
+            color: darken(@gray-dark, 10%);
+        }
+
+		& .item-icon, .select-icon{
+			position: absolute;
+			text-align: center;
+			font-size: 25px;
+			line-height: 40px;
+			top: 29px;
+			height: 40px;
+			width: 40px;
+
+			&.item-icon-left{
+				left: 0px;
+			}
+
+			&.item-icon-right{
+				right: 0;
+			}
+
+			&.item-icon-circle{
+				background: @gray-light;
+				color: white;
+				border-radius: 50%;
+				&.fa-phone{
+					line-height: 43px;
+				}
+
+                &.fa-bullseye{
+                    line-height: 42px;
+                }
+			}
+
+            &.select-item-icon{
+                border: 2px solid darken(@gray-dark, 10%);
+				border-radius: 50%;
+            }
+		}
+
+        & .label-container{
+            position: absolute;
+			right: 0;
+			top: 37px;
+        }
+
+		& dl {
+			& dd{
+				display: inline-block;
+			}
+
+			& dt{
+				display: inline-block;
+			}
+		}
+
+		& .raiting{
+			position: absolute;
+			right: 0;
+			top: 27px;
+		}
+	}
+
+	& tr{
+		& td{
+			vertical-align: middle !important;
+		}
+
+		position:relative;
+		border-bottom: 1px solid @gray-light;
+		padding-top: 30px;
+		padding-bottom: 30px;
+		padding-left: 75px;
+
+		& .item-icon, & .select-icon{
+			
+			text-align: center;
+			font-size: 25px;
+			line-height: 40px;
+			height: 40px;
+			width: 40px;
+
+			&.item-icon-circle{
+				background: @gray-light;
+				color: white;
+				border-radius: 50%;
+				&.fa-phone{
+					line-height: 43px;
+				}
+
+                &.fa-bullseye{
+                    line-height: 42px;
+                }
+			}
+
+            &.select-item-icon{
+                border: 2px solid darken(@gray-dark, 10%);
+				border-radius: 50%;
+            }
+
+	    }
+    }
+
+    &.tag-list{
+        & .btn-sm{
+            line-height: 0.5;
+        }
+    
+    }
+
+}
+
+.icon-list.interactable{
+	& tbody tr:hover
+	{
+		background:#f3f3f3;	
+        cursor: pointer;
+	}
+}
+
+table.table{
+    & thead td span{
+		vertical-align: middle !important;
+		font-family: @font-family-sans-serif-bold;
+	}
+}
+

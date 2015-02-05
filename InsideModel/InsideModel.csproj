@@ -1,0 +1,209 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{D14C25C7-F867-4DB6-BF9C-5F6544F3A67E}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>InsideModel</RootNamespace>
+    <AssemblyName>InsideModel</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.1.0\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.1.0\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.1.0\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Data.Edm, Version=5.6.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Data.Edm.5.6.0\lib\net40\Microsoft.Data.Edm.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Data.OData, Version=5.6.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Data.OData.5.6.0\lib\net40\Microsoft.Data.OData.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Data.Services.Client, Version=5.6.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Data.Services.Client.5.6.0\lib\net40\Microsoft.Data.Services.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin">
+      <HintPath>..\packages\Microsoft.Owin.3.0.0\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security">
+      <HintPath>..\packages\Microsoft.Owin.Security.2.1.0\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies">
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.2.1.0\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth">
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.2.1.0\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAzure.Configuration, Version=1.8.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.WindowsAzure.ConfigurationManager.1.8.0.0\lib\net35-full\Microsoft.WindowsAzure.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAzure.Storage, Version=4.2.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Helpers.test\bin\Release\Microsoft.WindowsAzure.Storage.dll</HintPath>
+    </Reference>
+    <Reference Include="Moq">
+      <HintPath>..\packages\Moq.4.2.1408.0717\lib\net40\Moq.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.6.0.5\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject">
+      <HintPath>..\packages\Ninject.3.0.1.10\lib\net40\Ninject.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Spatial, Version=5.6.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Spatial.5.6.0\lib\net40\System.Spatial.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Helper\SQLPasswordHasher.cs" />
+    <Compile Include="Migrations\201304231529283_UpdatedToDatetime2.cs" />
+    <Compile Include="Migrations\201304231529283_UpdatedToDatetime2.Designer.cs">
+      <DependentUpon>201304231529283_UpdatedToDatetime2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201304231624474_AddedNullabelsToSerp.cs" />
+    <Compile Include="Migrations\201304231624474_AddedNullabelsToSerp.Designer.cs">
+      <DependentUpon>201304231624474_AddedNullabelsToSerp.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Budget.cs" />
+    <Compile Include="Models\Client.cs" />
+    <Compile Include="Models\ContactFromType.cs" />
+    <Compile Include="Models\ExternalToken.cs" />
+    <Compile Include="Models\Identity\RoleStore.cs" />
+    <Compile Include="Models\Identity\UserLogins.cs" />
+    <Compile Include="Models\Identity\InsideRole.cs" />
+    <Compile Include="Models\Identity\UserClaims.cs" />
+    <Compile Include="Models\InsideUser.cs" />
+    <Compile Include="Models\Identity\UserStore.cs" />
+    <Compile Include="Models\Label.cs" />
+    <Compile Include="Models\Contact.cs" />
+    <Compile Include="Models\ContactInteraction.cs" />
+    <Compile Include="Models\ContactProperty.cs" />
+    <Compile Include="Models\Mapping\BudgetMap.cs" />
+    <Compile Include="Models\Mapping\ClientMap.cs" />
+    <Compile Include="Models\Mapping\ExternalTokenMap.cs" />
+    <Compile Include="Models\Mapping\TagMap.cs" />
+    <Compile Include="Models\Mapping\UserClaimsMap.cs" />
+    <Compile Include="Models\Mapping\UserLoginsMap.cs" />
+    <Compile Include="Models\Mapping\InsideRoleMap.cs" />
+    <Compile Include="Models\Mapping\InsideUserMap.cs" />
+    <Compile Include="Models\Mapping\LabelMap.cs" />
+    <Compile Include="Models\Mapping\ContactInteractionMap.cs" />
+    <Compile Include="Models\Mapping\ContactMap.cs" />
+    <Compile Include="Models\Mapping\ContactPropertyMap.cs" />
+    <Compile Include="Models\Mapping\TokenMap.cs" />
+    <Compile Include="Models\InsideContext.cs" />
+    <Compile Include="Models\Mapping\SerpRankingMap.cs" />
+    <Compile Include="Models\Mapping\TaskMap.cs" />
+    <Compile Include="Models\Notification.cs" />
+    <Compile Include="Models\Tag.cs" />
+    <Compile Include="Models\TaskStorage\ITaskQueueStorage.cs" />
+    <Compile Include="Models\Token.cs" />
+    <Compile Include="Models\SerpRanking.cs" />
+    <Compile Include="Models\Task.cs" />
+    <Compile Include="Models\TaskStatus.cs" />
+    <Compile Include="Models\TaskType.cs" />
+    <Compile Include="Models\Identity\IdentityConfig.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="repositories\IRepository.cs" />
+    <Compile Include="repositories\Repository.cs" />
+    <Compile Include="repositories\SerpRepository.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="InsideMigration\databaseCleanup.sql" />
+    <Content Include="InsideMigration\OwinMigrationStep1-GenerateOwinUserTablesWithData.sql" />
+    <Content Include="InsideMigration\OwinMigrationStep2-MoveOwinUserDataToMainDB.sql" />
+    <Content Include="InsideMigration\OwinMigrationStep3-MergeInsideUsersWithOwinUsers.sql" />
+    <Content Include="InsideMigration\sprint14.sql" />
+    <Content Include="InsideMigration\sprint11.sql" />
+    <Content Include="InsideMigration\sprint8.sql" />
+    <Content Include="InsideMigration\sprint7.sql" />
+    <Content Include="InsideMigration\sprint5.sql" />
+    <Content Include="InsideMigration\sprint1.sql" />
+    <Content Include="InsideMigration\sprint2.sql" />
+    <Content Include="InsideMigration\sprint3.sql" />
+    <Content Include="InsideMigration\sprint4.sql" />
+    <Content Include="InsideMigration\sprint6.sql" />
+    <Content Include="InsideMigration\sprint8.sql" />
+    <Content Include="InsideMigration\sprint9.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201304231529283_UpdatedToDatetime2.resx">
+      <DependentUpon>201304231529283_UpdatedToDatetime2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201304231624474_AddedNullabelsToSerp.resx">
+      <DependentUpon>201304231624474_AddedNullabelsToSerp.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

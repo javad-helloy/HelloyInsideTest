@@ -1,0 +1,133 @@
+﻿@using System.Activities.Statements
+@model InsideReporting.Models.ClientsWithBudgetsViewModel
+
+@{
+    ViewBag.Title = "Budgetar";
+    Layout = "/Views/Layout/_SiriusTopMenu.cshtml";
+}
+
+<script type="text/javascript" charset="utf8" src="http://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
+
+<h3>Budgets</h3>
+
+@if (!string.IsNullOrEmpty(Model.Error))
+{
+    <div class="alert alert-danger">@Model.Error</div>
+}
+<div style="padding-bottom: 10px;" class="toggle-group">
+    <a href="/Budget" class="btn btn-toggle btn-toggle-toggled">Översikt</a>
+    <a href="/Budget/listall" class="btn btn-toggle btn-toggle-default">List</a>
+</div>
+
+    <table id="table" class="table">
+        <thead>
+            <tr>
+                <th>
+                    <p>Kampanjplaneras</p>
+                </th>
+                <th>
+                    <p>Kund Id</p>
+                </th>
+                <th>
+                    <p>Kund</p>
+                </th>
+                <th>
+                    <p>MK</p>
+                </th>
+                <th>
+                    <p>AM</p>
+                </th>
+                <th class="text-right">
+                    <p>Budget @Model.NameOfCurrentMonth</p>
+
+                </th>
+                <th class="text-right">
+                    <p>Budget @Model.NameOfnextMonth</p>
+
+                </th>
+                
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Clients)
+            {
+                <tr>
+                    <td>
+                        @if (item.HasCampaignPlan)
+                        {
+                            <span class="label label-success admin-label">Kampanjplaneras</span>
+                        }
+                       
+                    </td>
+                    <td>
+                        @item.ClientId
+                    </td>
+                    <td>
+                        <a href="/Budget/list?clientId=@item.ClientId">@Html.DisplayFor(modelItem => item.ClientName)</a>
+                        @if (item.HasUnHandledBudgets)
+                        {
+                            <span class="label label-success admin-label">Ny!</span>
+                        }
+                    </td>
+                    <td>
+                        @item.Consultant
+                    </td>
+                    <td>
+                        @item.AccountManager
+                    </td>
+                    <td class="text-right" data-order="@(item.CurrentMothsBudget != null ? item.CurrentMothsBudget.Value.ToString("0"):"0")">
+                        @if (item.CurrentMothsBudget != null)
+                        {
+                            @(item.CurrentMothsBudget.Value.ToString("# ##0") + " kr");
+                        }
+                        else
+                        {
+                            @("-")
+                        }
+                    </td>
+                    <td class="text-right" data-order="@(item.NextMothsBudget != null ? item.NextMothsBudget.Value.ToString("0"):"0")">
+                        @if (item.NextMothsBudget != null)
+                        {
+                            @(item.NextMothsBudget.Value.ToString("# ##0") + " kr");
+                        }
+                        else
+                        {
+                            @("-")
+                        }
+                    </td>
+                </tr>
+            }
+        <tbody>
+    </table>
+    <a href="@Url.Action("Index", new { showAll = true })" class="btn btn-primary">Visa alla</a>
+
+
+    <script type="text/javascript">
+        var that = this;
+        $(function () {
+
+            $.fn.redraw = function () {
+                $(this).each(function () {
+                    var redraw = this.offsetHeight;
+                });
+            };
+            $('#table').dataTable({
+
+                "bPaginate": false,
+                "bAutoWidth": false,
+                "bInfo": false,
+                "aoColumnDefs": [
+                    { "bVisible": false, "aTargets": [] }
+                ],
+                "aaSorting": [0],
+                "bFilter": false
+                
+            });
+
+            $.extend($.fn.dataTableExt.oStdClasses, {
+                "sSortAsc": "header headerSortDown",
+                "sSortDesc": "header headerSortUp"
+            });
+        });
+
+    </script>

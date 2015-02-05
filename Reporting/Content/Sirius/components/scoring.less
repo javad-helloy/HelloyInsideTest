@@ -1,0 +1,79 @@
+﻿
+.raiting{
+	& .fa{
+		&.icon-gold{
+ 			color: #ffcb18;
+ 		}
+
+ 		&.icon-disable{
+ 			color:@gray-light;
+ 		}
+
+        &.icon-gray{
+ 			color: @gray;
+ 		}
+
+ 		&.check-box{
+ 			font-size: 18px;
+ 		}
+	}
+	
+	&:hover .fa{
+	 	color: #ffcb18;
+	}
+
+	& .fa.fa-star{
+		cursor: pointer;
+		font-size: 28px;
+
+		&:hover{
+			color: #ffcb18;
+		}
+
+		&:hover ~ .fa{
+			color: @gray-light;
+		}
+	}
+}
+
+.raiting-readonly{
+	& .fa{
+		&.icon-gold{
+ 			color: #ffcb18;
+ 		}
+
+ 		&.icon-disable{
+ 			color:@gray-light;
+ 		}
+
+        &.icon-gray{
+ 			color: @gray;
+ 		}
+
+ 		&.check-box{
+ 			font-size: 18px;
+ 		}
+	}
+	
+	& .fa.fa-star{
+		font-size: 28px;
+	}
+}
+
+.index-score{
+    text-align:center;
+	& .fa{
+		&.icon-disable{
+ 			color:@gray-light;
+ 		}
+
+        &.icon-enable{
+ 			color: @gray;
+ 		}
+	}
+	
+	& .fa.fa-minus{
+		font-size: 14px;
+        width: 5px;
+	}
+}

@@ -1,0 +1,29 @@
+﻿@model InsideReporting.Models.LogOnModel
+
+@{
+    ViewBag.Title = "Login";
+    Layout = "/Views/Layout/_SiriusNoMenu.cshtml";
+}
+
+<section class="centered-main-content login-form">
+    <img src="/Content/inside-cloud.png" />
+    <h1>Helloy Inside</h1>
+    @using (Html.BeginForm("LogOn", "Account", FormMethod.Post, new { role = "form" }))
+    {
+        @Html.ValidationSummary(true)
+        @Html.HiddenFor(m => m.ReturnUrl)
+        <div class="form-group">
+            @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", @placeholder = "E-postadress" })
+        </div>
+        <div class="form-group">
+            @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = "Ditt lösenord" })
+        </div>
+        <div class="form-group">
+            <p>@Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })</p>
+            <p>@Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })</p>
+        </div>
+        <div class="form-group">
+            <button class="btn btn-large btn-info btn-block" type="submit">Logga in</button>
+        </div>
+    }
+</section>

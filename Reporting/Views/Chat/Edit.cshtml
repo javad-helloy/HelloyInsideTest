@@ -1,0 +1,58 @@
+﻿@model InsideReporting.Models.ChatViewModel
+
+@{
+    ViewBag.Title = "Ändra inloggning";
+    Layout = "/Views/Layout/_SiriusTopMenu.cshtml";
+}
+<h2>Ändra Chat Lead</h2>
+
+<div class="panel panel-default">
+    <div class="panel-body">
+        @using (Html.BeginForm(new { @role = "form" }))
+        {
+            @Html.ValidationSummary(true)
+            @Html.HiddenFor(model => model.Id)
+            @Html.ValidationSummary(true)
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.LiveChatId)
+                        @Html.TextBoxFor(model => model.LiveChatId, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.LiveChatId)
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ClientName)
+                        @Html.DropDownListFor(model => Model.ClientId, (SelectList)ViewBag.ClientIds, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.ClientName)
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Date)
+                        @Html.TextBoxFor(model => model.Date, String.Format("{0:yyyy-MM-dd HH:mm}", Model.Date), new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Date)                        
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Description)
+                        @Html.TextAreaFor(model => model.Description, 4, 20, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Description)                        
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Email)
+                        @Html.TextBoxFor(model => model.Email, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Email)                        
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Phone)
+                        @Html.TextBoxFor(model => model.Phone, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Phone)                        
+                    </div>
+                </div>
+            </div>
+            <input type="submit" value="Spara" class="btn btn-primary" />
+        }
+    </div>
+</div>
+
+<div>
+    @Html.ActionLink("Tillbaka till listan", "Index")
+</div>
+

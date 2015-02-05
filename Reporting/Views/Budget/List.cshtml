@@ -1,0 +1,182 @@
+﻿@using System.Globalization
+@model InsideReporting.Models.Budget.ClientBudgetListViewModel
+
+@{
+    ViewBag.Title = "title";
+    Layout = "/Views/Layout/_Sirius.cshtml";
+}
+<script type="text/javascript" charset="utf8" src="http://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
+
+@if (!string.IsNullOrEmpty(Model.Error))
+{
+    <div class="alert alert-danger">@Model.Error</div>
+}
+
+<div style="padding-bottom: 10px;" class="toggle-group">
+    <a href="/Budget" class="btn btn-toggle btn-toggle-default">Översikt</a>
+    <a href="/Budget/list" class="btn btn-toggle btn-toggle-toggled">Lista</a>
+</div>
+
+<section class="main-content" id="main-content">
+    <div class="row" style="max-width:1300px;min-height:100%;">
+        <div class="col-xs-12" style="min-height:100%">
+            <header class="hidden-when-header">
+                <h2>Lägg till ny budget</h2>
+            </header>
+            <section class="widget">
+                <form action="/budget/create/" method="post" class="form-inline" role="form">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <input type="hidden" name="ClientId" value="@Model.BudgetView.ClientId">
+                            <div class="form-group">
+                                <label class="sr-only" for="month">Månad</label>
+                                <input name="Month" type="month" class="form-control" id="month" placeholder="Månad">
+                            </div>
+                            <div class="form-group">
+                                <label class="sr-only" for="month">Belopp</label>
+                                <input name="Value" type="number" class="form-control" id="value" placeholder="Belopp">
+                            </div>
+                            <div class="form-group">
+                                <label class="sr-only" for="month">Komenterar</label>
+                                <input name="Comment" type="text" class="form-control" id="comment" placeholder="Kommenterar" size="35">
+
+                            </div>
+                            <button type="submit" class="btn btn-primary">Lägg till</button>
+                        </div>
+
+                    </div>
+                    <div class="row" style="margin: 15px;">
+
+                    </div>
+                </form>
+            </section>
+            
+            <header class="hidden-when-header">
+                <h2>Budgetar</h2>
+            </header>
+            <section class="widget">
+                <table id="table" class="table">
+                    <thead>
+                        <tr>
+                            <th>
+                                <p>Status</p>
+
+                            </th>
+                            <th>
+                                <p>Kund</p>
+
+                            </th>
+                            <th>
+                                <p>Månad</p>
+
+                            </th>
+                            <th class="text-right">
+                                <p>Storlek</p>
+                            </th>
+                            <th class="text-right">
+                                <p>AdSpend</p>
+                            </th>
+                            <th style="width: 20%;">
+                                <p>kommentar</p>
+                            </th>
+                            <th>
+                            </th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                    @{
+                        var cultureInfo = new CultureInfo("sv-SE", false);
+                    }
+                    @foreach (var budget in Model.Budgets)
+                    {
+                        <tr>
+                            <td>
+                                @if (!budget.IsHandled)
+                                {
+                                    if (Model.CanMarkBudgetAsDone)
+                                    {
+                                        <button role="remove-new" class="btn btn-success btn-xsmall" data-budget-id="@budget.Id"><i class="fa fa-times"></i>Ny!</button>
+                                    }
+                                    else
+                                    {
+                                        <button class="btn btn-default btn-xsmall" data-budget-id="@budget.Id"><i class="fa fa-times"></i>Ny!</button>
+                                    }
+                                }
+
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => budget.Client.Name)
+                            </td>
+                            <td data-order="@budget.Month.ToString("yyyyMM")">@budget.Month.ToString("Y", cultureInfo)</td>
+                            <td class="text-right" data-order="@budget.Value">@(budget.Value.ToString("# ##0") + " kr")</td>
+                            <td class="text-right" data-order="@budget.Value">@(budget.AdSpent.ToString("# ##0") + " kr")</td>
+                            <td style="width: 20%;">@budget.Comment</td>
+                            <td>
+                                <div class="pull-right">
+                                    <a href="/Budget/edit?id=@budget.Id" title="Ändra"><i class="fa fa-pencil"></i></a>
+                                    <a href="/Budget/Delete?budgetId=@budget.Id" title="Ta bort"><i class="fa fa-trash-o"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                    <tbody>
+                </table>
+            </section>
+            <a href="@Url.Action("Index")" class="btn btn-default pull-right">Budget översikt</a>
+        </div>
+    </div>
+</section>
+
+<script type="text/javascript">
+    var that = this;
+    $(function () {
+        $('#client-budget-link').addClass("active");
+
+        var now = new Date();
+        now.setMonth(now.getMonth() + 1);
+        $('#month').val(now.toJSON().substring(0, 7));
+
+        $.fn.redraw = function () {
+            $(this).each(function () {
+                var redraw = this.offsetHeight;
+            });
+        };
+
+        $('#table').dataTable({
+
+            "bPaginate": false,
+            "bAutoWidth": false,
+            "bInfo": false,
+            "aoColumnDefs": [
+                { "bVisible": false, "aTargets": [] }
+            ],
+            "aaSorting": [],
+            "bFilter": false
+        });
+
+        $.extend($.fn.dataTableExt.oStdClasses, {
+            "sSortAsc": "header headerSortDown",
+            "sSortDesc": "header headerSortUp"
+        });
+
+
+        $('[role="remove-new"]').click(function (e) {
+            e.preventDefault();
+            var that = $(this);
+            var budgetId = $(this).data("budget-id");
+            $.ajax({
+                type: "POST",
+                url: "/Budget/Handle",
+                data: { budgetId: budgetId },
+                dataType: "text",
+                traditional: true
+            }).success(function (result) {
+                that.parent().html("");
+            }).error(function (error) {
+                alert("error");
+            });
+        });
+    });
+</script>
+

@@ -1,0 +1,47 @@
+﻿@model  InsideReporting.Models.User.UserViewModel
+
+<div class="row">
+    <div class="col-md-6">
+        @Html.HiddenFor(model => model.Id)
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name)
+            @if (Model.IsEditingExcisting)
+            {
+                @Html.TextBoxFor(model => model.Name, new { @class = "form-control", @readonly = true })
+            }
+            else
+            {
+                @Html.TextBoxFor(model => model.Name, new { @class = "form-control"})
+            }
+                
+            @Html.ValidationMessageFor(model => model.Name)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Phone)
+            @Html.TextBoxFor(model => model.Phone, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Phone)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Password)
+            @Html.TextBoxFor(model => model.Password, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Password)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.ReceiveEmail)
+            @Html.EditorFor(model => model.ReceiveEmail, new { @class = "form-control", @id = "isReceiveEmail" })
+            @Html.ValidationMessageFor(model => model.ReceiveEmail)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.ReceiveSms)
+            @Html.EditorFor(model => model.ReceiveSms, new { @class = "form-control", @id = "isReceiveEmail" })
+            @Html.ValidationMessageFor(model => model.ReceiveSms)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.IsLockedOut)
+            @Html.EditorFor(model => model.IsLockedOut, new { @class = "form-control", @id = "isReceiveEmail" })
+            @Html.ValidationMessageFor(model => model.IsLockedOut)
+        </div>
+    </div>
+</div>
+
+

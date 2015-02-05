@@ -1,0 +1,46 @@
+﻿.icon-list.large-list{
+    list-style: none;
+    padding-left: 0;
+	& li{	
+		height: auto;
+        border-bottom: 1px solid @gray-light;
+         & span{
+                &.lighter{
+                    color: @gray;
+                }
+
+                 &.darker{
+                    color: #666;
+                    white-space: nowrap;
+                }
+            }
+        & .row{
+            margin: 0;
+            
+            & .col-xs-2:first-child{
+                padding: 0 !important;
+            }
+        }
+
+        & .table{
+            max-width: 140px;
+            margin: 0;
+            & tr{
+                padding: 0;
+                border-bottom: 0px;
+                & td{
+                    border-top: 0px;
+                    padding: 0;
+                    
+                }    
+            }
+            & tr:hover{
+                background: inherit;
+                cursor: initial;
+            }
+        }
+	}
+    & li:last-child{	
+        border-bottom: 0px;
+    }
+}

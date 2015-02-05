@@ -1,0 +1,115 @@
+﻿@model InsideReporting.Controllers.SiriusReportModel
+@{
+    ViewBag.Title = "Resultat";
+    Layout = "/Views/Layout/_Sirius.cshtml";
+}
+
+<header class="header-container header-container-active" id="header-filter-container">
+    <div class="left-menu">
+        <button class="toggle-sidebar btn-icon-only btn-empty"><i class="fa fa-bars" style=""></i></button>
+    </div>
+    <div class="middle-menu active-item menu-item" >
+        <span class="month-name">
+            Webb
+        </span>
+    </div>
+    <div class="dropdown right-menu" >
+        <a href="#" class="active-item btn-icon-only dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown">
+            <i class="fa fa-calendar"></i>
+        </a>
+        <ul class="dropdown-menu dropdown-menu-large" role="menu" aria-labelledby="dropdownMenu1">
+            <li class="current monthly" role="presentation"><a class="dropdown-menu-item" role="menuitem" tabindex="-1" data-text="Månad">Månad</a></li>
+            <li class="divider" role="presentation"></li>
+            <li class="yearly" role="presentation"><a class="dropdown-menu-item"  role="menuitem" tabindex="-1" data-text="År">År</a></li>
+            <li class="divider" role="presentation"></li>
+            <li class="alltime" role="presentation"><a class="dropdown-menu-item"  role="menuitem" tabindex="-1" data-text="Totalt">Totalt</a></li>
+        </ul>
+    </div>
+
+</header>
+
+<section class="main-content" id="main-content">
+    <div class="row" style="max-width:1300px;min-height:100%;">
+        <article class="col-xs-12" style="min-height:100%">
+            <header>
+                <h2>
+                    <span id="text">Besökare</span>
+                    <div class="btn-group pull-right hidden-when-header">
+                        <label class="btn btn-default active monthly">
+                            <span> Månad</span>
+                        </label>
+                        <label class="btn btn-default yearly">
+                            <span> År</span>
+                        </label>
+                        <label class="btn btn-default alltime">
+                            <span> Totalt</span>
+                        </label>
+                    </div>
+
+                </h2>
+            </header>
+            <section id="visitorChart" class="widget"></section>
+        </article>
+        <article id="seo-table" class="col-xs-12" style="min-height:100%">
+           
+            
+        </article>
+    </div>
+
+</section>
+
+@section scripts{
+    <script type="text/javascript">
+        $(function () {
+
+
+            $('body').screenresize();
+
+            $('body').reportselector({
+                clientId: '@Model.ClientId'
+            });
+
+            $('#webtab-link').addClass('active');
+            $('#visitorChart').visitorsovertimechart();
+
+            $('#seo-table').seotable();
+
+            $(document).bind("monthlyReport", function () {
+                $('header label.btn').removeClass('active');
+                $('label.monthly').addClass('active');
+
+                $('.dropdown-menu li').removeClass('current');
+                $('li.monthly').addClass('current');
+            });
+
+            $(document).bind("yearlyReport", function () {
+                $('header label.btn').removeClass('active');
+                $('label.yearly').addClass('active');
+
+                $('.dropdown-menu li').removeClass('current');
+                $('li.yearly').addClass('current');
+            });
+
+            $(document).bind("allTimeReport", function () {
+                $('header label.btn').removeClass('active');
+                $('label.alltime').addClass('active');
+
+                $('.dropdown-menu li').removeClass('current');
+                $('li.alltime').addClass('current');
+            });
+
+            $('.monthly').click(function () {
+                $(document).trigger("monthlyReport");
+            });
+
+            $('.yearly').click(function () {
+                $(document).trigger("yearlyReport");
+            });
+
+            $('.alltime').click(function () {
+                $(document).trigger("allTimeReport");
+            });
+        });
+    </script>
+}
+

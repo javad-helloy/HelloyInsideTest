@@ -1,0 +1,36 @@
+﻿@model InsideReporting.Models.Contact.ContactViewModel
+@{
+    ViewBag.Title = "Resultat";
+    Layout = "/Views/Layout/_Sirius.cshtml";
+}
+
+@Html.Partial("/Views/Layout/_SiriusTitlebar.cshtml", "Kontakt")
+
+<section class="main-content" id="main-content">
+    <div class="row" style="max-width:1300px;min-height:100%;">
+        <article id="contact-widget" class="col-xs-12  col-lg-8 "></article>
+        <article class="col-xs-12  col-lg-8 ">
+            <header >
+                <div class="btn btn-default">
+                    <i class="fa fa-chevron-left"></i>
+                    <a href="/report/@Model.ClientId/contact" style="color: white; text-decoration: none">Alla kontakter</a>
+                </div>
+            </header>
+        </article>
+    </div>
+</section>
+
+
+@section scripts{
+    <script type="text/javascript">
+        $(function() {
+            $('body').screenresize();
+
+            $('body').reportselector({
+                clientId: '@Model.ClientId'
+            });
+            $('body').contactdata();
+            $('#contact-widget').contact({contactId:@Model.ContactId});
+        });
+    </script>
+}

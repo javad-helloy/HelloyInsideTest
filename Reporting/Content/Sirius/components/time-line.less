@@ -1,0 +1,134 @@
+@event-time-padding-top:30px;
+
+.time-line{
+	list-style: none;
+	padding-left: 0;
+
+	&::before {
+	  /* this is the vertical line */
+	  content: '';
+	  position: absolute;
+	  top: 0;
+	  left: 9%;
+	  height: 100%;
+	  width: 2px;
+	  background: @gray-light;
+	}
+
+	& .event{
+		clear: both;
+		color:white;
+
+		padding: @padding-large-vertical 0;
+		
+		& a{
+			color:white;
+			font-family: @font-family-sans-serif-bold;
+		}
+
+
+		& .event-time{
+			padding: @padding-base-vertical 0;
+			position: relative;
+			//margin-top: 1.5*@padding-large-vertical;
+
+			display: inline-block;
+			width: 15%;
+
+			font-family: @font-family-sans-serif-bold;
+			font-size: 18px;
+
+			vertical-align: top;
+			margin-top: @event-time-padding-top;
+			
+			//float: left;
+			text-align: center;
+			border-radius: @border-radius-base;
+		}
+
+		& .event-information{
+			display: inline-block;
+			position: relative;
+			width: 78%;
+			padding: 2*@padding-large-vertical 5%;
+
+			font-size: 18px;
+			font-family: @font-family-sans-serif-light;
+
+			margin-left: 5%;
+			margin-bottom: 0;
+			//float: right;
+
+			border-radius: @border-radius-base;	
+
+			& .fa{
+				font-size: 30px;
+				margin-top: 12px;
+			}
+
+			& span{
+				width: 80%;
+				margin-left: 5%;
+			}
+
+			&::after {
+				width: 0;
+				height: 0;
+				border-left: 15px solid transparent;
+				border-right: 15px solid red;
+				border-bottom: 15px solid transparent;
+				border-top: 15px solid transparent;
+				position: absolute;
+				top: @event-time-padding-top;
+				left: -29px;
+				content: "";
+				margin-left: auto;
+				margin-right: auto;
+				z-index: 10;
+			}
+		}
+
+		&.event-info{
+			& .event-time{
+				background-color: @brand-info;
+			}
+
+			& .event-information{
+				background-color: @brand-info;
+				&::after {
+					border-right: 15px solid @brand-info;;
+				}
+			}
+		}		
+
+		&.event-success{
+			& .event-time{
+				background-color: @brand-success;
+			}
+
+			& .event-information{
+				background-color: @brand-success;
+				&::after {
+					border-right: 15px solid @brand-success;;
+				}
+			}
+		}
+
+		&.event-default{
+			& .event-time{
+				background-color: @helloy-gray;
+			}
+
+			& .event-information{
+				background-color: @helloy-gray;
+				&::after {
+					border-right: 15px solid @helloy-gray;
+				}
+			}
+		}
+	}
+
+	&:last-child{
+		padding-bottom: 0;
+	}
+}

@@ -1,0 +1,18 @@
+﻿CREATE TABLE [dbo].[Token](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[UserId] [int] NOT NULL,
+	[Accept_Token] [nvarchar](256) NOT NULL UNIQUE,
+	[Expiration_Date] [datetime] NOT NULL,
+ CONSTRAINT [PK_Token] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)) 
+
+GO
+
+ALTER TABLE [dbo].[Token]  WITH CHECK ADD  CONSTRAINT [FK_Token_InsideUser] FOREIGN KEY([UserId])
+REFERENCES [dbo].[InsideUser] ([Id])
+GO
+
+ALTER TABLE [dbo].[Token] CHECK CONSTRAINT [FK_Token_InsideUser]
+GO

@@ -1,0 +1,96 @@
+﻿@model InsideReporting.Models.Chat.ChatListViewModel
+
+@{
+    ViewBag.Title = "Chat";
+    Layout = "/Views/Layout/_SiriusTopMenu.cshtml";
+}
+    
+<!-- DataTables -->
+<script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js"></script>
+
+
+<p><a href="@Url.Action("Create", "Chat")" class="btn btn-primary">Skapa ny Chat Lead</a></p>
+
+<h3>Chat Leads</h3>
+
+
+<table id="table" class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.LabelFor(model => model.Collection.FirstOrDefault().ClientName)
+            </th>
+            <th>
+                @Html.LabelFor(model => model.Collection.FirstOrDefault().Date)
+            </th>
+            <th>
+                @Html.LabelFor(model => model.Collection.FirstOrDefault().Phone)
+            </th>
+            <th>
+                @Html.LabelFor(model => model.Collection.FirstOrDefault().Email)
+            </th>
+            <th style="width: 20%;">
+                @Html.LabelFor(model => model.Collection.FirstOrDefault().Description)
+            </th>
+            <th>
+                
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var item in Model.Collection)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ClientName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Phone)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td style="width: 20%;">
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    <div style="width: 40px;">
+                        <a href="@Url.Action("Edit", "Chat", new { id = item.Id })" title="Ändra"><i class="fa fa-pencil-square-o"></i> </a>
+                        <a href="@Url.Action("Delete", "Chat", new { id = item.Id })" title="Ta bort"><i class="fa fa-trash-o"></i></a>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script type="text/javascript">
+    var that = this;
+    $(document).ready(function () {
+
+        $('#table').dataTable({
+
+            "bPaginate": false,
+            "bAutoWidth": false,
+            "bInfo": false,
+            "oLanguage": {
+                "sSearch": "Sök: "
+            },
+            "aaSorting": []
+        });
+
+        $.extend($.fn.dataTableExt.oStdClasses, {
+            "sSortAsc": "header headerSortDown",
+            "sSortDesc": "header headerSortUp",
+            "sSortable": "header"
+        });
+
+       
+    });
+
+</script>
+

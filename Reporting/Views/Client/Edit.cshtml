@@ -1,0 +1,252 @@
+﻿@using InsideModel.Models
+@model InsideReporting.Models.ClientPageViewModel
+
+@{
+    ViewBag.Title = "Ändra kund";
+    Layout = "/Views/Layout/_Sirius.cshtml";
+}
+
+<section class="main-content" id="main-content">
+    <div class="row" style="max-width:1300px;min-height:100%;">
+        <article class="col-xs-12 col-lg-8">
+            <h2>Inställningar</h2>
+            <div class="panel panel-default">
+                <div class="panel-body ">
+                    @using (Html.BeginForm("Edit","Client",new { @role = "form" }, FormMethod.Post, new {@class="left-form"}))
+                    {
+                        @Html.ValidationSummary(true)
+                        <div class="row ">
+                            <div class="col-md-12">
+                                <div class="devider"><h4>Grundinställningar</h4></div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.ClientViewModel.Id)
+                                    @Html.TextBoxFor(model => model.ClientViewModel.Id, new { @class = "form-control", @readonly = "true" })
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.ClientViewModel.Name)
+                                    @Html.TextBoxFor(model => model.ClientViewModel.Name, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.ClientViewModel.Name)
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.ClientViewModel.ConsultantId)
+                                    @Html.DropDownListFor(model => Model.ClientViewModel.ConsultantId, Model.Consultant, new { @class = "form-control", @id = "Consultant" })
+                                    @Html.ValidationMessageFor(model => model.ClientViewModel.ConsultantId)
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.ClientViewModel.AccountManagerId)
+                                    @Html.DropDownListFor(model => Model.ClientViewModel.AccountManagerId, Model.AccountManager, new { @class = "form-control", @id = "AccountManager" })
+                                    @Html.ValidationMessageFor(model => model.ClientViewModel.AccountManagerId)
+                                </div>
+                                <div class="form-group">
+                                    <label for="IsActive">Aktiv</label>
+                                    @Html.CheckBoxFor(model => model.ClientViewModel.IsActive, new { @class = "", @id = "isActive" })
+                                    @Html.ValidationMessageFor(model => model.ClientViewModel.IsActive)
+                                </div>
+
+                                <div class="devider"><h4>Ekonomi</h4></div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.ClientViewModel.FeeFixedMonthly)
+                                    <div class="input-group">
+                                        @Html.TextBoxFor(model => model.ClientViewModel.FeeFixedMonthly, new { @class = "form-control" })
+                                        <span class="input-group-addon">Kr</span>
+                                    </div>
+                                    @Html.ValidationMessageFor(model => model.ClientViewModel.FeeFixedMonthly)
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.ClientViewModel.FeePercent)
+                                    <div class="input-group">
+                                        @Html.TextBoxFor(model => (model.ClientViewModel.FeePercent), new { @class = "form-control" })
+                                        <span class="input-group-addon">%</span>
+
+                                    </div>
+                                    @Html.ValidationMessageFor(model => model.ClientViewModel.FeePercent)
+                                </div>
+
+                                <div class="devider"><h4>Tekniska inställningar</h4></div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.ClientViewModel.Domain)
+                                    @Html.TextBoxFor(model => model.ClientViewModel.Domain, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.ClientViewModel.Domain)
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.ClientViewModel.AnalyticsTableId)
+                                    @Html.TextBoxFor(model => model.ClientViewModel.AnalyticsTableId, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.ClientViewModel.AnalyticsTableId)
+                                </div>
+
+
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.ClientViewModel.CallTrackingMetricId)
+                                    @Html.TextBoxFor(model => model.ClientViewModel.CallTrackingMetricId, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.ClientViewModel.CallTrackingMetricId)
+                                </div>
+                                
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.ClientViewModel.EmailAddress)
+                                    @Html.TextAreaFor(model => model.ClientViewModel.EmailAddress, 4, 0, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.ClientViewModel.EmailAddress)
+                                </div>
+
+                                <div class = "devider"><h4>Extrainformation</h4></div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.ClientViewModel.Address)
+                                    <div class="input-group">
+                                        @Html.TextBoxFor(model => model.ClientViewModel.Address, new { @class = "form-control" })
+                                        <span class="input-group-btn" >
+                                            <button type ="button" class="btn btn-default" id="geo-code-address"><i class="fa fa-map-marker"></i></button>
+                                        </span>
+                                    </div>
+                                    @Html.ValidationMessageFor(model => model.ClientViewModel.Address)
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.ClientViewModel.Longitude)
+                                    @Html.TextBoxFor(model => model.ClientViewModel.Longitude, new { @class = "form-control", @id = "longitude" })
+                                    @Html.ValidationMessageFor(model => model.ClientViewModel.Longitude)
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.ClientViewModel.Latitude)
+                                    @Html.TextBoxFor(model => model.ClientViewModel.Latitude, new { @class = "form-control", @id = "latitude" })
+                                    @Html.ValidationMessageFor(model => model.ClientViewModel.Latitude)
+                                </div>
+
+                            </div>
+                           </div>
+                        <input type="submit" value="Spara" class="btn btn-primary pull-right" />
+                    }
+                </div>
+            </div>
+            <h2>Uppdatera telefonsamtal</h2>
+            <div class="panel panel-default">
+                <div class="panel-body">
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="month">Från</label>
+                                <input name="startDate" type="date" class="form-control" id="startDate" placeholder="Månad">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="month">Till</label>
+                                <input name="endDate" type="date" class="form-control" id="endDate" placeholder="Månad">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="alert alert-danger" style="display: none;">Misslyckades! Kontrollera "Från Datum", "Till Datum" eller "CTMId".</div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button type="submit" id="import" class="btn btn-primary pull-right">Uppdatera</button>
+
+                            <div class="progress" style="display: none; height: 5px">
+                                <div id="progress-bar" class="progress-bar progress-bar-info" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: 0; ">
+                                    <span class="sr-only">40% Complete (success)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div>
+                @Html.ActionLink("Tillbaka till listan", "Index")
+            </div>
+        </article>
+    </div>
+</section>
+<script>
+    $(function() {
+        $('#client-edit-link').addClass('active');
+    });
+    
+    var geoCodeAdress = function () {
+        var address = $('#ClientViewModel_Address').val();
+        $.getJSON('/Geo/Code', { address: address }, function (data) {
+            if (data.status === "OK" && data.results.length > 0) {
+                $("#longitude").val(data.results[0].geometry.location.lng);
+                $("#latitude").val(data.results[0].geometry.location.lat);
+            }
+        });
+    };
+
+    $('#geo-code-address').click(geoCodeAdress);
+    var totalEntries = 0;
+    var numCallsMade = 0;
+    var getPhoneCallData = function (pageNumber) {
+
+
+        var callTrackingId = $('#ClientViewModel_CallTrackingMetricId').val();
+        var startDate = $('#startDate').val();
+        var endDate = $('#endDate').val();
+
+        if (callTrackingId == "" || startDate == "" || endDate == "") {
+            $('.progress').hide();
+            $('#import').show();
+            $('.alert').show();
+
+            return;
+        }
+
+        if (startDate > endDate) {
+            $('.progress').hide();
+            $('#import').show();
+            $('.alert').show();
+
+            return;
+        }
+        var url = '/api/externaldata/phone/account/' + callTrackingId + '/calls?' + $.param({
+            startDate: startDate,
+            endDate: endDate,
+            page: pageNumber
+        });
+        $.get(url, function (stringData) {
+            var data = $.parseJSON(stringData);
+            totalEntries = data.total_entries;
+            if (totalEntries == 0) {
+                $('#progress-bar').removeClass('progress-bar-info').addClass('progress-bar-success');
+                $('#progress-bar').width("100%");
+                return;
+            }
+            $.each(data.calls, function (index, value) {
+                $.post('/Webhook/CallTrackingMetricWebhook', JSON.stringify(value))
+                    .done(function () {
+                        numCallsMade++;
+                        $('#progress-bar').width((numCallsMade * 100 / totalEntries) + "%");
+                        if (numCallsMade >= totalEntries) {
+                            $('#progress-bar').removeClass('progress-bar-info').addClass('progress-bar-success');
+                        }
+                    });
+
+            });
+
+
+            if (data.next_page !== undefined && data.next_page !== '' && data.page !== data.total_pages) {
+
+                getPhoneCallData(pageNumber + 1);
+            }
+        }).error(function () {
+            $('.progress').hide();
+            $('#import').show();
+            $('.alert').show();
+        });
+    }
+
+    $('#import').on('click', function () {
+        $('#import').hide();
+        $('.alert').hide();
+        $('.progress').show();
+
+        getPhoneCallData(1);
+    });
+
+    //$('#Address').change(geoCodeAdress);
+</script>
+

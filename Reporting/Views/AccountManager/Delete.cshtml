@@ -1,0 +1,25 @@
+﻿@using InsideReporting.Models
+@model InsideReporting.Models.AccountManagerViewModel
+
+@{
+    ViewBag.Title = "Ta bort";
+    Layout = "/Views/Layout/_SiriusTopMenu.cshtml";
+}
+
+<h2>Ta bort - Kontoansvarig</h2>
+
+<h3>Är du säkert på att du vill ta bort följande Kontoansvarig?</h3>
+<fieldset>
+    @Html.HiddenFor(model => model.Id)
+    <div class="display-label">@Html.LabelFor(model => model.Name)</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Name)
+    </div>
+</fieldset>
+@using (Html.BeginForm())
+{
+    <p>
+        <input type="submit" value="Ta bort" class="btn btn-primary" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}

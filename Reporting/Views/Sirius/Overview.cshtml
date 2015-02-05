@@ -1,0 +1,32 @@
+﻿@model InsideReporting.Controllers.SiriusReportModel
+@{
+    ViewBag.Title = "Resultat";
+    Layout = "/Views/Layout/_Sirius.cshtml";
+}
+
+@Html.Partial("/Views/Layout/_SiriusTitlebar.cshtml", "Resultat")
+
+<section class="main-content" id="main-content">
+    <div class="row" style="max-width:1300px;min-height:100%;">
+        <article id="flow-widget" class="col-xs-12  col-lg-7 "></article>
+        <article id="chart-widget" class="col-xs-12 col-lg-5 "></article>
+
+    </div>
+</section>
+
+@section scripts{
+    <script type="text/javascript">
+        $(function () {
+            $('body').screenresize();
+
+            $('body').reportselector({
+                clientId: '@Model.ClientId'
+            });
+
+            $('#overview-link').addClass('active');
+            $('#flow-widget').flowSummary({ showCustomContacts: '@Model.HasCustomEvents' });
+            $('#chart-widget').overviewChart({ showCustomContacts: '@Model.HasCustomEvents' });
+        });
+    </script>
+}
+

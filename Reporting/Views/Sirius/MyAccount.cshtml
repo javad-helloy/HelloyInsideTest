@@ -1,0 +1,104 @@
+﻿@using System.Web.Optimization
+@using InsideReporting.Controllers
+@model InsideReporting.Controllers.SiriusAccountModel
+@{
+    ViewBag.Title = "Mitt konto";
+    Layout = "/Views/Layout/_Sirius.cshtml";
+}
+
+@Html.Partial("/Views/Layout/_SiriusTitlebar.cshtml", "Mitt konto")
+
+<section class="main-content" id="main-content">
+    <div class="row" style="max-width:1300px;min-height:100%;">
+        <div class="col-xs-12 col-lg-8" style="min-height:50%">
+            <article id="settings"></article>
+            <article id="password">
+                <header >
+                    <h2>Lösenord</h2>
+                </header>
+                
+                <section class="widget" id="my-account">
+                    @using (Html.BeginForm("MyAccount", "Sirius", new { role = "form" }, FormMethod.Post, new { @class = "left-form" }))
+                    {
+                        if (Model.Message != null && Model.Message.Type == "Error")
+                        {
+
+                            @Html.ValidationSummary(@Model.Message.MessageText, new { @class = "text-danger" })
+                        }
+                        @Html.HiddenFor(model => model.ClientId)
+                        @Html.HiddenFor(model => model.ReceiveEmail)
+                        @Html.HiddenFor(model => model.ReceiveSms)
+                        @Html.HiddenFor(model => model.Phone)
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.OldPassword)
+                            <div>
+                                @Html.PasswordFor(m => m.OldPassword, new { @class = "form-control ", @placeholder = "Gammalt lösenord" })
+                                @Html.ValidationMessageFor(model => model.OldPassword, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Password)
+                            <div>
+                                @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = "Nytt lösenord" })
+                                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.ConfirmPassword)
+                            <div>
+                                @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control ", @placeholder = "Bekräfta ditt lösenord" })
+                                @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group" style="text-align: right;">
+                            <input type="submit" class="btn btn-success" value="Spara" />
+                        </div>
+                    }
+                </section>
+            </article>
+            
+        </div>
+    </div>
+</section>
+
+@section scripts{
+    <script type="text/javascript">
+        $(function () {
+            $('body').screenresize();
+
+            $('body').reportselector({
+                clientId: '@Model.ClientId'
+            });
+
+            $('#my-account-link').addClass('active');
+            $('#settings').account({
+                receiveEmail: '@Model.ReceiveEmail',
+                receiveSms: '@Model.ReceiveSms',
+                phoneNumber: '@Model.Phone',
+            });
+        });
+
+    </script>
+}
+
+<script type="text/javascript">
+    $(function () {
+        @if (Model.Message != null && Model.Message.Type=="Success")
+        {
+            <text>
+                var alertBox = $('<div class="alert alert-success alert-dismissible" id="success-alert" role="alert">' +
+                  '<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>' +
+                  '<p>@Model.Message.MessageText</p>' +
+                  '</div>');
+                    alertBox.appendTo($('#password header'));
+                    alertBox.alert();
+                setTimeout(function () {
+                    alertBox.alert('close');
+                }, 2000);
+        
+            </text>
+        }
+
+    });
+</script>

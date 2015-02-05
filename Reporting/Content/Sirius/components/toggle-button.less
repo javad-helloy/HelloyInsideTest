@@ -1,0 +1,79 @@
+﻿.toggle-group {
+    margin-bottom: 10px;
+
+    .btn.btn-toggle {
+        margin-left: 15px;
+        width: 151px;
+        margin: 2px 6px;
+
+        &:focus {
+            outline: 0;
+        }
+
+
+        &.btn-toggle-default {
+            .button-variant(@helloy-blue;
+            #fff;
+            @helloy-blue
+            );
+
+            & > .fa:before {
+                content: "\f046";
+            }
+
+            &:active, &:focus {
+                background-color: #ffffff;
+                border-color: @helloy-blue;
+            }
+
+            &:hover {
+                background-color: @helloy-blue;
+                color: #fff;
+                border-color: @btn-info-border;
+            }
+        }
+
+        &.btn-toggle-toggled {
+            .button-variant(@btn-info-color;
+            @btn-info-bg;
+            @btn-info-border
+            );
+
+            & > .fa:before {
+                content: "\f046";
+            }
+
+            &:hover, &:active, &:focus {
+                background-color: @helloy-blue !important;
+                border-color: @helloy-blue !important;
+                color: #fff;
+                border-color: @btn-info-border;
+            }
+        }
+
+        &.btn-toggle-untoggled {
+            .button-variant(@gray-light;
+            #ffffff;
+            @gray-light
+            );
+
+            & > .fa:before {
+                content: "\f096";
+            }
+
+            &:hover {
+                color: @helloy-blue;
+                background-color: #effbff;
+                border-color: @helloy-blue;
+            }
+
+            &:active, &:focus {
+                background-color: #ffffff !important;
+            }
+        }
+    }
+}
+
+.filter-row td{
+    padding: 6px 0;
+}

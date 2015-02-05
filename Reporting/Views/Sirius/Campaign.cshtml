@@ -1,0 +1,135 @@
+﻿@model InsideReporting.Controllers.SiriusReportModel
+@{
+    ViewBag.Title = "Kampanjer";
+    Layout = "/Views/Layout/_Sirius.cshtml";
+}
+
+<header class="header-container header-container-active" id="header-filter-container">
+    <div class="left-menu">
+        <button class="toggle-sidebar btn-icon-only btn-empty"><i class="fa fa-bars" style=""></i></button>
+    </div>
+    <div class="middle-menu active-item menu-item" style="right: 110px; overflow-x: hidden !important;">
+        <a href="#" class="active-item menu-item right-menu-item dropdown-toggle" id="dropdownMenu2">
+            <span class="dropdown-title">Kampanjer</span>
+        </a>
+        
+    </div>
+    <div class="dropdown" >
+        <ul class="dropdown-menu dropdown-menu-large" role="menu" id="dropdownMenuList" style="min-height: 50px; left: 25px;">
+            <li class="current campaign-report" role="presentation"><a role="menuitem" tabindex="-1" >Kampanjer</a></li>
+            <li class="divider" role="presentation"></li>
+            <li class="keyword-report" role="presentation"><a role="menuitem" tabindex="-1">Sökord</a></li>
+        </ul>
+    </div>
+    <div class="right-menu" style="width: 110px;">
+
+    </div>
+    
+</header>
+
+
+
+<section class="main-content" id="main-content">
+    <div class="row" style="max-width:1300px;min-height:50%;">
+        <article class="col-xs-12" style="min-height:50%">
+            
+            <header class="display-when-header">
+                <h2>
+                    <span id="header-description"></span>
+                    <span class="month-name"></span>
+                </h2>
+
+            </header>
+
+            <header class="hidden-when-header">
+                <h2>
+                    <span class="header-title ">Kampanjer</span> <div class="month-name" style="display: inline-block;"></div>
+                    <div class="btn-group pull-right" id="date-picker"></div>
+                    <div class="btn-group pull-right" style="padding-right: 15px">
+                        <label class="btn btn-default active campaign-report">
+                            <span>Kampanjer</span>
+                        </label>
+                        <label class="btn btn-default keyword-report">
+                            <span>Sökord</span>
+                        </label>
+                    </div>
+                </h2>
+
+            </header>
+            <section class="widget" id="campaign-table"></section>
+            <section class="widget" id="keyword-table"></section>
+
+            <section class="widget" id="campaign-list"></section>
+            <section class="widget" id="keywords-list"></section>
+        </article>
+    </div>
+</section>
+
+
+<script type="text/javascript">
+    $(function () {
+        
+        $('body').reportselector({
+            clientId: '@Model.ClientId'
+        });
+        $('body').screenresize();
+
+        $('.month-name').ReportName('MMMM');
+      
+        $(document).bind("campaignReport", function() {
+            $('span.header-title').html('Kampanjer');
+            $('#header-description').html('');
+            $('span.dropdown-title').html('Kampanjer');
+
+            $('ul#dropdownMenuList li').removeClass('current');
+            $('ul#dropdownMenuList li.campaign-report').addClass('current');
+
+            $('header .btn.keyword-report').removeClass('active');
+            $('header .btn.campaign-report').addClass('active');
+        });
+
+        $(document).bind("keywordReport", function () {
+            $('span.header-title').html('Topp Sökord');
+
+            $('#header-description').html('Topp ');
+            $('span.dropdown-title').html('Sökord');
+
+            $('ul#dropdownMenuList li').removeClass('current');
+            $('ul#dropdownMenuList li.keyword-report').addClass('current');
+            
+            $('header .btn.campaign-report').removeClass('active');
+            $('header .btn.keyword-report').addClass('active');
+
+        });
+
+        $('body').click(function() {
+            $('ul#dropdownMenuList').hide();
+        });
+
+        $('#dropdownMenu2').click(function (event) {
+            event.stopImmediatePropagation();
+            $('ul#dropdownMenuList').toggle();
+        });
+
+        $('.keyword-report').click(function () {
+            $('ul#dropdownMenuList').hide();
+            $(document).trigger("keywordReport");
+        });
+
+        $('.campaign-report').click(function () {
+            $('ul#dropdownMenuList').hide();
+            $(document).trigger("campaignReport");
+        });
+
+        $('#date-picker').ReportDatePicker();
+        $('.right-menu').ReportDatePicker("mini");
+
+        $('#campaign-link').addClass('active');
+        $('#campaign-table').campaigntable();
+        $('#keyword-table').keywordtable();
+        $('#campaign-list').campaignlist();
+        $('#keywords-list').keywordslist();
+
+    });
+</script>
+

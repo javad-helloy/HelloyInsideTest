@@ -1,0 +1,48 @@
+.label{
+	font-size: 100%;
+	font-weight: lighter;
+	margin-right: .2em;
+    margin-bottom: .4em
+}
+
+.labels-container{
+    & a:hover{
+        text-decoration: none;
+    }
+}
+
+header .labels-container{
+    display: inline-block; 
+}
+
+.label.label-action:hover{
+	cursor: pointer;
+	box-shadow: 0px 1px 2px rgba(0,0,0,0.3);
+}
+
+.label.label-action.label-info:hover{
+    background-color: darken(@helloy-blue, 10%);
+}
+
+.label.label-action.label-success:hover{ 
+    background-color: darken(@helloy-green, 10%);
+}
+
+.label.label-action.label-primary:hover{
+    background-color: darken(@helloy-orange, 10%);
+}
+
+.label.label-action.label-default:hover{
+    background-color: darken(@gray-light, 10%);
+}
+
+.large-value{
+	font-family: @font-family-sans-serif-bold;
+	color:@gray-dark;
+	font-size: 40px;
+}
+
+.label.admin-label{
+	font-size: 75%;
+    font-weight: 400;
+}	

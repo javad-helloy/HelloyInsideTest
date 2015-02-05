@@ -1,0 +1,96 @@
+﻿@detail-padding-vertical: 30px;
+@detail-padding-horizontal: 40px;
+
+@detail-small-padding-vertical: 15px;
+@detail-small-padding-horizontal: 20px;
+
+@detail-component-padding-vertical: 15px;
+@detail-component-padding-horizontal: 15px;
+
+.contact-detail{
+    padding: 0;
+
+    & h4{
+        font-family: @font-family-sans-serif-light;
+    }
+
+    & a{
+        text-decoration: none;
+    }
+    & .header{
+        padding: @detail-padding-vertical/2 @detail-padding-horizontal;
+        border-bottom: 1px solid #e5e5e5;
+    }
+    & .body{
+        padding: @detail-padding-vertical @detail-padding-horizontal;
+        & .decription-container {
+            padding-bottom: @detail-padding-vertical;
+        }
+        & .info-container{
+            color: darken(@gray, 25%);
+        }
+    }
+    
+    & .btn.btn-lg i.fa {
+        font-size: 35px;
+        font-weight: 800;
+        line-height: 30px;
+    }
+
+    & .decription-content{
+        border: 1px solid @gray-light;
+        border-radius: @border-radius-base;
+        &.text{
+            height: 250px; 
+            overflow-y: auto;
+            padding: 0 10px;
+            margin: 0;
+        }
+    }
+
+    & .header-fixed{
+        height: 80px;
+        & .raiting{
+            position: absolute;
+            top: 89px;
+            left: 114px;
+        }
+        & .share-contact{
+            position: absolute;
+            top: 84px;
+            left: 54px;
+        }
+
+    }
+}
+
+.contact-detail.mini{
+
+    & h4{
+        margin-top: 0;
+        margin-bottom:  @detail-component-padding-vertical/2;
+    }
+    
+    & .body{
+        padding: @detail-small-padding-vertical @detail-small-padding-horizontal;
+        & .decription-container {
+            padding-bottom: @detail-small-padding-vertical*2;
+        }
+    }
+    & .decription-content{
+        max-height: 120px;
+    }
+    & .header-fixed{
+        height: 65px;
+        & .raiting{
+            top: 19px;
+            left: @detail-small-padding-horizontal + 65px;
+        }
+    
+        & .share-contact{
+            position: absolute;
+            top: 15px;
+            left: @detail-small-padding-horizontal+5;
+        }
+    }
+}

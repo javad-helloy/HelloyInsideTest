@@ -1,0 +1,54 @@
+﻿@using System.Web.Optimization
+@model InsideReporting.Models.Layout.LoggedInViewModel
+
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <title>@ViewBag.Title</title>
+    @Html.Partial("/Views/Layout/_HeaderPartial.cshtml")
+    @Scripts.Render("~/bundles/core")
+    @RenderSection("scripts", required: false)
+
+    <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-23730196-16']);
+        _gaq.push(['_setCustomVar', 2, 'Helloy Inside User', "@Model.UserId", 2]);
+        _gaq.push(['_trackPageview']);
+        _gaq.push(['_trackPageLoadTime']);
+        (function () {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+    
+</head>
+    <body>
+        <div class="one-page">
+            <div class="top shadow-element">
+                <div class="container">
+                    <div class="top-left">
+                        <a href="/"><img class="hidden-small-sidebar" src="/Content/logo-inside-2-text.jpg" /><img class="fa-spin spin-slow" src="/Content/logo-inside-2-circle.jpg" /></a>
+                    </div>
+                    <div class="top-menu">
+                        <ul>
+                            @foreach (var menuitem in Model.TopMenu)
+                            {
+                                <li><a href="@Url.Action(menuitem.ActionName, menuitem.ControllerName)">@menuitem.DisplayName</a></li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="main-admin-content">
+                <div class="container">
+                    @RenderBody()
+                </div>
+            </div>
+        </div>
+    
+        @RenderSection("FooterIncludes", required: false)
+    </body>
+    <link type="text/css" rel="stylesheet" href="http://fast.fonts.net/cssapi/84b49f9c-1685-4a06-a2e1-82933d0a7f0e.css" />
+</html>

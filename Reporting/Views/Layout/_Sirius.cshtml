@@ -1,0 +1,197 @@
+﻿@using System.Web.Optimization
+@using dotless.Core.Utils
+@using Microsoft.AspNet.Identity
+@model InsideReporting.Controllers.SiriusReportModel
+@{
+    Layout = null;
+}
+
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>@ViewBag.Title</title>
+        @Html.Partial("/Views/Layout/_HeaderPartial.cshtml")
+        
+        <script type="text/javascript">
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-23730196-16']);
+            _gaq.push(['_setCustomVar', 2, 'Helloy Inside User', "@Model.UserId", 2]);
+            _gaq.push(['_setCustomVar', 1, 'Helloy Inside Client', "@Model.ClientId", 2]);
+            @if (User.IsInRole("client"))
+            {
+                <text>
+                    _gaq.push(['_setCustomVar', 3, 'Helloy Inside Role',"client", 2]);    
+                </text>
+            }
+            else if (User.IsInRole("sales"))
+             {
+                 <text>
+                     _gaq.push(['_setCustomVar', 3, 'Helloy Inside Role',"sales", 2]);    
+                 </text>
+             }
+             else if (User.IsInRole("consultant"))
+             {
+                 <text>
+                     _gaq.push(['_setCustomVar', 3, 'Helloy Inside Role',"consultant", 2]);    
+                 </text>
+             }
+            
+            _gaq.push(['_trackPageview']);
+            _gaq.push(['_trackPageLoadTime']);
+            (function () {
+                var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+            })();
+        </script>
+
+        @Scripts.Render("~/bundles/core")
+        @Scripts.Render("~/bundles/minify")
+        @RenderSection("scripts", required: false)
+
+    </head>
+    <body class="has-sidebar">
+        <section class="sidebar container-dark" id="sidebar">
+            <nav id="side-menu">
+                <ul class="menu main-menu">
+                @if (Model.HasAdminMenu)
+                {
+                    <li class="dark">
+                        <span class="one-line">@Model.ClientName</span>
+                    </li>
+                    <li class="no-padding">
+                        <span>admin</span>
+                    </li>
+                    <li>
+                        <a href="/client/edit/@Model.ClientId" id="client-edit-link">
+                            <i class="fa fa-heart"></i>
+                            <span>Kund</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/Budget/list?clientId=@Model.ClientId" id="client-budget-link">
+                            <i class="fa fa-money"></i>
+                            <span>Budget</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/user/list?clientId=@Model.ClientId" id="client-logins-link">
+                            <i class="fa fa-user"></i>
+                            <span>Användare</span>
+                        </a>
+                    </li>
+                    <li class="no-padding">
+                        <span>Kund</span>
+                    </li>
+                }
+                    <li>
+                        <a href="/report/@Model.ClientId/result" id="overview-link">
+                            <i class="fa fa-usd"></i>
+                            <span>Resultat</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/report/@Model.ClientId/contact" id="contact-link">
+                            <i class="fa fa-comments-o"></i>
+                            <span>Kontakter</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/report/@Model.ClientId/campaign" id="campaign-link">
+                            <i class="fa fa-bullhorn"></i>
+                            <span>Kampanjer</span>
+                        </a>
+                    </li>
+                    @if (Model.HasWebTab)
+                    {
+                        <li>
+                            <a href="/report/@Model.ClientId/webb" id="webtab-link">
+                                <i class="fa fa-desktop"></i>
+                                <span>Webb</span>
+                            </a>
+                        </li>
+                    }
+                    <li>
+                        <a href="/report/@Model.ClientId/myaccount" id="my-account-link">
+                            <i class="fa fa-cogs"></i>
+                            <span>Mitt Konto</span>
+                        </a>
+                    </li>
+
+                </ul>
+            </nav>
+            <button id="toggle-menu" class="menu-toggle">
+                <i class="fa fa-bars"></i>
+            </button>
+        </section>
+        @RenderBody()
+        <script type="text/javascript">
+            $(function () {
+                $('body').addClass('has-transitions-animation');
+                
+                $(document).bind("screenSizeChange", function (event, screenSize) {
+                    if (screenSize=="small") {
+                        $("body").addClass("has-header").addClass("sidebar-hidden").removeClass("sidebar-active");
+                    }
+                    else if (screenSize=="large") {
+                        $("body").removeClass("has-header").removeClass("sidebar-hidden").removeClass("sidebar-active");
+                    }
+                });
+
+                $(document).trigger("requestScreenSize", function (screenSize) {
+                    if (screenSize == "small") {
+                        $("body").addClass("has-header").addClass("sidebar-hidden").removeClass("sidebar-active");
+                    }
+                    else if (screenSize == "large") {
+                        $("body").removeClass("has-header").removeClass("sidebar-hidden").removeClass("sidebar-active");
+                    }
+                });
+
+            });
+
+            $(function(){
+                $('.toggle-sidebar').click(function(){
+                    $('body').toggleClass("sidebar-active");
+                    $('body').toggleClass("sidebar-hidden");
+                });
+
+                var hideSideBar = function(){
+                    if ($('body').hasClass("sidebar-active")){
+                        $('body').removeClass("sidebar-active");
+                        $('body').addClass("sidebar-hidden");
+                    }
+                };
+
+                var showSideBar = function(){
+                    if ($('body').hasClass("sidebar-hidden")){
+                        $('body').removeClass("sidebar-hidden");
+                        $('body').addClass("sidebar-active");
+                    }
+                };
+
+                $('.main-content').click(hideSideBar);
+
+                var mainContent = document.getElementById('main-content');
+                var sidebar = document.getElementById('sidebar');
+
+
+                var hammertime = new Hammer(sidebar, {direction: Hammer.DIRECTION_LEFT});
+                hammertime.on('swipe', function(ev) {
+                    hideSideBar();
+                });
+
+                var hammertime2 = new Hammer(mainContent, {direction: Hammer.DIRECTION_HORIZONTAL});
+                hammertime2.on('swipe', function(ev) {
+                    if (ev.direction == Hammer.DIRECTION_LEFT){
+                        hideSideBar();
+                    }
+                    else{
+                        showSideBar();
+                    }
+                });
+            });
+        </script>
+    </body>
+    <link type="text/css" rel="stylesheet" href="http://fast.fonts.net/cssapi/84b49f9c-1685-4a06-a2e1-82933d0a7f0e.css" />
+</html>

@@ -1,0 +1,19 @@
+﻿@using System.Web.Optimization
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>@ViewBag.Title</title>
+        @Html.Partial("/Views/Layout/_HeaderPartial.cshtml")
+        
+        @Scripts.Render("~/bundles/core")
+        @Scripts.Render("~/bundles/minify")
+        @RenderSection("scripts", required: false)
+    </head>
+<body class="background-pattern hero-content">
+    @RenderBody()
+    <div class="login-form">
+    </div>
+</body>
+<link type="text/css" rel="stylesheet" href="http://fast.fonts.net/cssapi/84b49f9c-1685-4a06-a2e1-82933d0a7f0e.css" />
+</html>

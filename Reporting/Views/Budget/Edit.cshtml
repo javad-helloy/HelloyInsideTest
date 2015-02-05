@@ -1,0 +1,37 @@
+﻿@model InsideReporting.Models.Budget.CreateEditClientBudgetViewModel
+
+@{
+    ViewBag.Title = "Budget";
+    Layout = "/Views/Layout/_SiriusTopMenu.cshtml";
+}
+
+<h4>Lägg till ny budget för @Model.ClientName</h4>
+<div class="panel panel-default">
+    <div class="panel-body">
+
+        <form action="/budget/edit/" method="post" class="form-inline" role="form">
+            <div class="row">
+                <div class="col-md-12">
+                    <input type="hidden" name="id" value="@Model.BudgetId">
+                    <div class="form-group">
+                        <label class="sr-only" for="month">Månad</label>
+                        <input name="month" type="month" class="form-control" id="month" placeholder="Månad" disabled value="@Model.Month">
+                    </div>
+                    <div class="form-group">
+                        <label class="sr-only" for="month">Belopp</label>
+                        <input name="value" type="number" class="form-control" id="value" placeholder="Belopp" value="@Model.Value">
+                    </div>
+                    <div class="form-group">
+                        @Html.TextAreaFor(model => model.Comment, 1, 35, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Comment)
+                    </div>
+                    <button type="submit" class="btn btn-primary">Lägg till</button>
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>
+<div>
+    @Html.ActionLink("Tillbaka till listan", "List", new{clientId=@Model.ClientId})
+</div>

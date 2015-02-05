@@ -1,0 +1,83 @@
+﻿@using InsideModel.Models
+@model InsideReporting.Models.ClientPageLoggedViewModel
+
+@{
+    ViewBag.Title = "Skapa nya kund";
+    Layout = "/Views/Layout/_SiriusTopMenu.cshtml";
+}
+
+<h2>Skapa nya kund</h2>
+
+<div class="panel panel-default">
+    <div class="panel-body form-devided">
+        @using (Html.BeginForm("Create","Client",new { @role = "form" }, FormMethod.Post, new {@class="left-form"}))
+        {
+            @Html.ValidationSummary(true)
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="devider"><h4>Grundinställningar</h4></div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ClientViewModel.Name)
+                        @Html.TextBoxFor(model => model.ClientViewModel.Name, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.ClientViewModel.Name)
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ClientViewModel.ConsultantId)
+                        @Html.DropDownListFor(model => Model.ClientViewModel.ConsultantId, Model.Consultant, new { @class = "form-control", @id = "Consultant" })
+                        @Html.ValidationMessageFor(model => model.ClientViewModel.ConsultantId)
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ClientViewModel.AccountManagerId)
+                        @Html.DropDownListFor(model => Model.ClientViewModel.AccountManagerId, Model.AccountManager, new { @class = "form-control", @id = "AccountManager" })
+                        @Html.ValidationMessageFor(model => model.ClientViewModel.AccountManagerId)
+                    </div>
+                    
+                    <div class="devider"><h4>Ekonomi</h4></div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ClientViewModel.FeeFixedMonthly)
+                        <div class="input-group">
+                            @Html.TextBoxFor(model => model.ClientViewModel.FeeFixedMonthly, new { @class = "form-control" })
+                            <span class="input-group-addon">Kr</span>
+                        </div>
+                        @Html.ValidationMessageFor(model => model.ClientViewModel.FeeFixedMonthly)
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ClientViewModel.FeePercent)
+                        <div class="input-group">
+                            @Html.TextBoxFor(model => (model.ClientViewModel.FeePercent), new { @class = "form-control" })
+                            <span class="input-group-addon">%</span>
+
+                        </div>
+                        @Html.ValidationMessageFor(model => model.ClientViewModel.FeePercent)
+                    </div>
+                </div>
+            </div>
+
+
+            <input type="submit" value="Create" class="btn btn-primary" />
+        }
+    </div>    
+</div>
+
+
+
+        <div>
+            @Html.ActionLink("Tillbaka till listan", "Index")
+        </div>
+
+        <script>
+            var geoCodeAdress = function () {
+                var address = $('#ClientViewModel_Address').val();
+                $.getJSON('/Geo/Code', { address: address }, function (data) {
+                    if (data.status === "OK" && data.results.length > 0) {
+                        $("#longitude").val(data.results[0].geometry.location.lng);
+                        $("#latitude").val(data.results[0].geometry.location.lat);
+                    }
+                });
+            };
+
+            $('#geo-code-address').click(geoCodeAdress);
+
+            $('#Address').change(geoCodeAdress);
+        </script>

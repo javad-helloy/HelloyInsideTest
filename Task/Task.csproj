@@ -1,0 +1,332 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{CF067BFB-B977-4748-AC8A-95A6518C36A6}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Task</RootNamespace>
+    <AssemblyName>Task</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Antlr3.Runtime">
+      <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="FSharp.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\FSharp.Core.4.0.0\lib\FSharp.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Apis, Version=1.9.0.26011, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Google.Apis.1.9.0\lib\net40\Google.Apis.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Apis.Analytics.v3, Version=1.9.0.107, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Google.Apis.Analytics.v3.1.9.0.1070\lib\portable-net40+sl50+win+wpa81+wp80\Google.Apis.Analytics.v3.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Apis.Auth">
+      <HintPath>..\packages\Google.Apis.Auth.1.9.0\lib\net40\Google.Apis.Auth.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Apis.Auth.PlatformServices">
+      <HintPath>..\packages\Google.Apis.Auth.1.9.0\lib\net40\Google.Apis.Auth.PlatformServices.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Apis.Core, Version=1.9.0.26010, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Google.Apis.Core.1.9.0\lib\portable-net40+sl50+win+wpa81+wp80\Google.Apis.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Apis.PlatformServices">
+      <HintPath>..\packages\Google.Apis.1.9.0\lib\net40\Google.Apis.PlatformServices.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.GData.Analytics, Version=2.2.0.0, Culture=neutral, PublicKeyToken=9e229226d7996434, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Google.GData.Analytics.2.2.0.0\lib\Google.GData.Analytics.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.GData.Client, Version=2.2.0.0, Culture=neutral, PublicKeyToken=04a59ca9b0273830, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Google.GData.Client.2.2.0.0\lib\Google.GData.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.GData.Extensions, Version=2.2.0.0, Culture=neutral, PublicKeyToken=0b4c5df2ebf20876, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Google.GData.Extensions.2.2.0.0\lib\Google.GData.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net">
+      <HintPath>..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="MailChimp">
+      <HintPath>..\packages\mcapi.net.1.3.1.3\lib\net40\MailChimp.dll</HintPath>
+    </Reference>
+    <Reference Include="Mandrill">
+      <HintPath>..\packages\Mandrill.0.1.1.5\lib\net40\Mandrill.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.1.0\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.1.0\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Azure.WebJobs">
+      <HintPath>..\packages\Microsoft.Azure.WebJobs.Core.1.0.0-rc1\lib\net45\Microsoft.Azure.WebJobs.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Azure.WebJobs.Host">
+      <HintPath>..\packages\Microsoft.Azure.WebJobs.1.0.0-rc1\lib\net45\Microsoft.Azure.WebJobs.Host.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Data.Edm, Version=5.6.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Data.Edm.5.6.0\lib\net40\Microsoft.Data.Edm.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Data.OData, Version=5.6.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Data.OData.5.6.0\lib\net40\Microsoft.Data.OData.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Data.Services.Client, Version=5.6.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Data.Services.Client.5.6.0\lib\net40\Microsoft.Data.Services.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Threading.Tasks, Version=1.0.12.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.Bcl.Async.1.0.168\lib\net40\Microsoft.Threading.Tasks.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Threading.Tasks.Extensions">
+      <HintPath>..\packages\Microsoft.Bcl.Async.1.0.168\lib\net40\Microsoft.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Threading.Tasks.Extensions.Desktop">
+      <HintPath>..\packages\Microsoft.Bcl.Async.1.0.168\lib\net40\Microsoft.Threading.Tasks.Extensions.Desktop.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAzure.Configuration, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\bin\Microsoft.WindowsAzure.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAzure.Storage, Version=4.2.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\WindowsAzure.Storage.4.2.1\lib\net40\Microsoft.WindowsAzure.Storage.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAzure.StorageClient, Version=1.7.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\bin\Microsoft.WindowsAzure.StorageClient.dll</HintPath>
+    </Reference>
+    <Reference Include="NewRelic.Api.Agent">
+      <HintPath>..\packages\NewRelic.Agent.Api.3.8.1.0\lib\NewRelic.Api.Agent.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.6.0.5\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Nustache.Core">
+      <HintPath>..\packages\Nustache.1.13.8.22\lib\net20\Nustache.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="RestSharp, Version=105.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\RestSharp.105.0.1\lib\net4\RestSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Services.Client" />
+    <Reference Include="System.Net" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.Extensions">
+      <HintPath>..\packages\Microsoft.Net.Http.2.2.22\lib\net45\System.Net.Http.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Primitives">
+      <HintPath>..\packages\Microsoft.Net.Http.2.2.22\lib\net45\System.Net.Http.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Spatial, Version=5.6.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Spatial.5.6.0\lib\net40\System.Spatial.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.1.2\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.1.2\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.1.2\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.1.2\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.1.2\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.1.2\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Twilio.Api">
+      <HintPath>..\packages\Twilio.3.6.24\lib\3.5\Twilio.Api.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease">
+      <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Zlib.Portable, Version=1.10.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Zlib.Portable.1.10.0\lib\portable-net4+sl5+wp8+win8+wpa81+MonoTouch+MonoAndroid\Zlib.Portable.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ContactProduct\AnalyticDataTaskCreator\CreateAnalyticDataTasksForClients.cs" />
+    <Compile Include="ContactProduct\AnalyticDataTaskCreator\ICreateAnalyticDataTasksForClients.cs" />
+    <Compile Include="ContactProduct\AnalyticData\AnalyticDataPropertyExtractor.cs" />
+    <Compile Include="ContactProduct\AnalyticData\IAnalyticDataPropertyExtractor.cs" />
+    <Compile Include="ContactProduct\AnalyticData\IAddAnalyticProductDataForClient.cs" />
+    <Compile Include="Email\NotificationEmail\INotificationEmailDefenitionBuilder.cs" />
+    <Compile Include="Email\NotificationEmail\NotificationEmailDefenitionBuilder.cs" />
+    <Compile Include="Email\NotificationEmail\NotificationEmailSender.cs" />
+    <Compile Include="Email\NotificationEmail\NotificationTaskMessage.cs" />
+    <Compile Include="Email\NotificationEmail\UserNotificationEmailSender.cs" />
+    <Compile Include="Email\NotificationEmail\UserSpecificNotificationTaskMessage.cs" />
+    <Compile Include="Email\Sender\IEmailSender.cs" />
+    <Compile Include="Email\Sender\MandrilEmailSender.cs" />
+    <Compile Include="ImportCustomEvents\CustomEventsImporter.cs" />
+    <Compile Include="ImportCustomEvents\CustomEventsExtractor.cs" />
+    <Compile Include="ImportCustomEvents\ICustomEventsImporter.cs" />
+    <Compile Include="ImportCustomEvents\ICustomEventsExtractor.cs" />
+    <Compile Include="ImportCustomEvents\ImportCustomEventsTaskCreator.cs" />
+    <Compile Include="ImportCustomEvents\ImportCustomEventsTaskMessage.cs" />
+    <Compile Include="ContactProduct\AnalyticDataTaskCreator\TaskMessageWithStartDateAndEndDate.cs" />
+    <Compile Include="ContactProduct\AnalyticData\ImportContactProductAnalyticDataTaskMessage.cs" />
+    <Compile Include="ImportSeoData\ImportSeoDataTaskMessage.cs" />
+    <Compile Include="ImportSeoData\ISeoDataImporter.cs" />
+    <Compile Include="ImportSeoData\ISeoDataImportMapper.cs" />
+    <Compile Include="ImportSeoData\SearchEngineRank.cs" />
+    <Compile Include="ImportSeoData\SeoDataImporter.cs" />
+    <Compile Include="ImportSeoData\SeoDataImportMapper.cs" />
+    <Compile Include="PhoneNotification\INotificationSender.cs" />
+    <Compile Include="PhoneNotification\IPhoneNotificationTextBuilder.cs" />
+    <Compile Include="PhoneNotification\NotificationSender.cs" />
+    <Compile Include="PhoneNotification\IPhoneNotificationTaskPerformer.cs" />
+    <Compile Include="PhoneNotification\PhoneNotificationTaskPerformer.cs" />
+    <Compile Include="PhoneNotification\PhoneNotificationTextBuilder.cs" />
+    <Compile Include="ContactProduct\AnalyticData\AddAnalyticProductDataForClient.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RemoveExpiredTokens\IRemoveExpiredTokens.cs" />
+    <Compile Include="RemoveExpiredTokens\RemoveExpiredTokens.cs" />
+    <Compile Include="SmsNotification\SmsNotificationSenderToUser\ISmsSender.cs" />
+    <Compile Include="SmsNotification\SmsNotificationSenderToUser\IUserSmsNotificationTaskPerformer.cs" />
+    <Compile Include="SmsNotification\SmsNotificationSenderToUser\UserSmsNotificationTaskPerformer.cs" />
+    <Compile Include="SmsNotification\SmsNotificationSenderToUser\UserSpecificSmsNotificationTaskMessage.cs" />
+    <Compile Include="SmsNotification\SmsNotificationUserTaskCreator\ISmsNotificationTaskPerformer.cs" />
+    <Compile Include="SmsNotification\SmsNotificationSenderToUser\ISmsNotificationTextBuilder.cs" />
+    <Compile Include="SmsNotification\SmsNotificationSenderToUser\SmsSender.cs" />
+    <Compile Include="SmsNotification\SmsNotificationUserTaskCreator\SmsNotificationTaskMessage.cs" />
+    <Compile Include="SmsNotification\SmsNotificationUserTaskCreator\SmsNotificationTaskPerformer.cs" />
+    <Compile Include="SmsNotification\SmsNotificationSenderToUser\SmsNotificationTextBuilder.cs" />
+    <Compile Include="TaskCreator\ITaskManager.cs" />
+    <Compile Include="TaskCreator\TaskManager.cs" />
+    <Compile Include="TaskPerformer\Delegate\ITaskDelegate.cs" />
+    <Compile Include="TaskPerformer\Delegate\TaskDelegate.cs" />
+    <Compile Include="TaskPerformer\Performer\ITaskPerformer.cs" />
+    <Compile Include="TaskPerformer\Storage\AzureQueueTaskQueue.cs" />
+    <Compile Include="UpdatePhonecalls\UpdatePhonecallsTaskCreator\CreateUpdatePhonecallsTasksForClients.cs" />
+    <Compile Include="UpdatePhonecalls\UpdatePhonecallsTaskCreator\ICreateUpdatePhonecallsTasksForClients.cs" />
+    <Compile Include="UpdatePhonecalls\UpdatePhonecallsTaskCreator\UpdatePhonecallsTaskMesage.cs" />
+    <Compile Include="UpdatePhonecalls\UpdatePhoneCalls\IUpdatePhonecalls.cs" />
+    <Compile Include="UpdatePhonecalls\UpdatePhoneCalls\UpdatePhonecalls.cs" />
+    <Compile Include="UpdatePhonecalls\UpdatePhoneCalls\UpdatePhonecallsForClientsTaskMessage.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Email\Template\EventRow.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Email\Template\WeeklyReport.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\InsideModel\InsideModel.csproj">
+      <Project>{d14c25c7-f867-4db6-bf9c-5f6544f3a67e}</Project>
+      <Name>InsideModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Inside\Inside.csproj">
+      <Project>{F7041963-A699-4E32-B05A-C54241F72041}</Project>
+      <Name>Inside</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Email\Template\ConsultantRow.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Email\Template\NewPhoneCallNotificationTemplate.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Email\Template\NewEmailNotificationTemplate.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Email\Template\NewChatNotificationTemplate.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
+  <Import Project="..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" />
+  <Target Name="EnsureBclBuildImported" BeforeTargets="BeforeBuild" Condition="'$(BclBuildImported)' == ''">
+    <Error Condition="!Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" Text="This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=317567." HelpKeyword="BCLBUILD2001" />
+    <Error Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" Text="The build restored NuGet packages. Build the project again to include these packages in the build. For more information, see http://go.microsoft.com/fwlink/?LinkID=317568." HelpKeyword="BCLBUILD2002" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

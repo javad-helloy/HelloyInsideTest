@@ -1,0 +1,67 @@
+﻿@model InsideReporting.Controllers.CcoReportViewModel
+
+@{
+    ViewBag.Title = "Chat";
+    Layout = "/Views/Layout/_SiriusTopMenu.cshtml";
+}
+
+<script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js"></script>
+
+
+
+<a href="@Url.Action("Report", "Cco", new { clientId = Model.Client.Id, startDate = Model.OnMonth.ToString("yyyy-MM-dd"), endDate = Model.Today.ToString("yyyy-MM-dd") })" class="btn btn-primary">Visa en Månad</a>
+<a href="@Url.Action("Report", "Cco", new { clientId = Model.Client.Id, startDate = Model.OneQuarter.ToString("yyyy-MM-dd"), endDate = Model.Today.ToString("yyyy-MM-dd") })" class="btn btn-primary">Visa ett Kvartal</a>
+<a href="@Url.Action("Report", "Cco", new { clientId = Model.Client.Id, startDate = Model.OneYear.ToString("yyyy-MM-dd"), endDate = Model.Today.ToString("yyyy-MM-dd") })" class="btn btn-primary">Visa ett År</a>
+
+<h3>@Model.Client.Name för @Model.StartDate.ToString("yyyy-MM-dd") - @Model.EndDate.ToString("yyyy-MM-dd")</h3>
+
+<table id="table" class="table">
+    <thead>
+        <tr>
+            <th><p>Sökord</p></th>
+            <th><p>Besök</p></th>
+            <th><p>Kostnad</p></th>
+            <th><p>Kontakter</p></th>
+            <th><p>Leads</p></th>
+            <th><p>Ej Leads</p></th>
+            <th><p>Kr/Kontakt</p></th>
+            <th><p>Kr/Lead</p></th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var keyword in Model.KeyWords)
+    {
+        <tr>
+            <td>@keyword.Keyword</td>
+            <td>@keyword.Adclicks</td>
+            <td>@String.Format("{0:0}", keyword.Cost)</td>
+            <td>@keyword.Contacts</td>
+            <td>@keyword.NumLead</td>
+            <td>@keyword.NumNotALead</td>
+            <td>@String.Format("{0:0.00}",keyword.CostPerContact)</td> 
+            <td>@String.Format("{0:0.00}", keyword.CostPerLead)</td> 
+        </tr>
+    }
+    <tbody>
+</table>
+
+<script type="text/javascript">
+    $(function () {
+        $('#table').dataTable({
+            "bFilter": false,
+            "bPaginate": false,
+            "bAutoWidth": false,
+            "bInfo": false,
+            "oLanguage": {
+                "sSearch": "Sök: "
+            },
+            "aaSorting": []
+        });
+
+        $.extend($.fn.dataTableExt.oStdClasses, {
+            "sSortAsc": "header headerSortDown",
+            "sSortDesc": "header headerSortUp",
+            "sSortable": "header"
+        });
+    });
+</script>

@@ -1,0 +1,16 @@
+﻿@{
+    ViewBag.Title = "Hoppsan - sidan hittades ej";
+    Layout = "/Views/Layout/_SiriusNoMenu.cshtml";
+}
+
+<section class="centered-main-content login-form">
+    <h1>Hittade ej sidan</h1>
+    <p>Kunde ej hitta sidan: @ViewBag.RequestedUrl</p>
+    @if (ViewBag.ReferrerUrl != null)
+    {
+        <p>Gå tillbaka till <a href="@ViewBag.ReferrerUrl">föregående sida</a>.</p>
+    }
+
+    @* Error page must be longer than 512 bytes for IE and Chrome to show it.
+        So add padding in case we're short. *@
+    @(new string(' ', 512))

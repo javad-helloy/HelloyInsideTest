@@ -1,0 +1,418 @@
+﻿@model InsideReporting.Controllers.LiveLeadsController.LiveLeadUserModel
+@{
+    Layout = null;
+    ViewBag.Title = "LiveLeads";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <style type="text/css">
+        html{height: 100%;}
+        body{height: 100%; margin: 0; padding: 0; }
+        #map-canvas { height: 100%; }
+        ul.large-list{
+            list-style: none;
+            padding-left: 0;
+            margin-left: 0;
+            width: 350px;
+        }
+
+        ul.large-list.goal-list {
+            width: 200px;
+        }
+
+        ul.large-list.goal-list li {
+            width: 225px;
+        }
+
+        ul.float-right {
+            position: fixed;
+            right: 50px;
+            top: 30px;
+            z-index: 1;
+        }
+
+        ul.float-left {
+            position: fixed;
+            left: 50px;
+            top: 30px;
+            z-index: 1;
+        }
+
+        ul.large-list li {
+            background: white;
+            width: 350px;
+            display: inline-block;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+            border-radius: 10px;
+        }
+
+        ul.large-list.leads-list {
+            height: 100px;
+        }
+
+        div.icon-background
+        {   
+            width: 80px;
+            height: 100px;
+            background: #009dd2;    
+            border-radius: 10px 0 0 10px;
+            display: inline-block;
+            float:left;
+            text-align: center;
+        }
+
+        .large-list.leads-list li:nth-child(1) div.icon-background {
+            background: #ff8202;
+        }
+        
+        div.icon-background i
+        {
+            font-size: 60px;
+            line-height: 100px;
+            color:white;
+        }
+        
+        div.leads-info
+        {
+            float:right;
+            width: 250px;
+            height: 80px;
+            border-radius:0 10px 10px 0;
+            background: white;
+            color: #009dd2;
+            display: table;
+            padding: 10px;
+        }
+
+        ul.leads-list li span{
+            display: table-cell;
+            vertical-align: middle;
+            font-size: 24px;
+        }
+
+        ul.large-list.goal-list li p {
+            padding: 15px;
+            margin: 0;
+        }
+
+        ul.large-list.goal-list li p:first-child {
+            border-radius: 10px 10px 0 0;
+        }
+
+        ul.large-list.goal-list li p.goal-value {
+            font-size: 24px;
+            background: #45b947;
+            color: white;
+        }
+
+        .large-list.leads-list li:nth-child(1) div.leads-info {
+            color: #ff8202;
+        }
+
+        
+    </style>
+    <link href="/Content/Sirius/inside.css" rel="stylesheet"></link>
+    <script src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min.js"></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.1&key=AIzaSyCSO9_kCyK64Hrw9_g64xRXdzGXXhsBFFc&sensor=true">
+    </script>
+    <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-23730196-16']);
+    _gaq.push(['_setCustomVar', 2, 'Helloy Inside User', "@Model.UserId", 2]);
+    _gaq.push(['_trackPageview']);
+    _gaq.push(['_trackPageLoadTime']);
+    (function () {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+    </script>
+    <script type="text/javascript">
+        var initialize = function() {
+            var styles = [
+                {
+                    "featureType": "water",
+                    "stylers": [
+                        { "lightness": 100 },
+                        { "saturation": -100 }
+                    ]
+                }, {
+                    "stylers": [
+                        { "saturation": -100 }
+                    ]
+                }, {
+                    
+                }
+            ];
+
+            var styledMap = new google.maps.StyledMapType(styles, { name: "Styled Map" });
+
+            var mapOptions = {
+                zoom: 11,
+                disableDefaultUI: true,
+                center: new google.maps.LatLng(59.32893000000001, 18.06491),
+                mapTypeControlOptions: {
+                    mapTypeIds: [google.maps.MapTypeId.ROADMAP, 'map_style']
+                }
+            };
+
+
+            var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+            window.service.map = map;
+
+            map.mapTypes.set('map_style', styledMap);
+            map.setMapTypeId('map_style');
+
+            var mailpinImage = "@Url.Content("~/Content/images/mailpin.png")";
+            var maillatestpinImage = "@Url.Content("~/Content/images/maillatestpin.png")";
+            var phonepinImage = "@Url.Content("~/Content/images/phonepin.png")";
+            var phonelatestpinimage = "@Url.Content("~/Content/images/phonelatestpin.png")";
+            var chatpinImage = "@Url.Content("~/Content/images/chat.png")";
+            var chatlatestpinImage = "@Url.Content("~/Content/images/chat-latest.png")";
+            var eventpinImage = "@Url.Content("~/Content/images/event.png")";
+            var eventlatestpinimage = "@Url.Content("~/Content/images/event-latest.png")";
+
+            window.service.mailpinImage = mailpinImage;
+            window.service.maillatestpinImage = maillatestpinImage;
+            window.service.phonepinImage = phonepinImage;
+            window.service.phonelatestpinimage = phonelatestpinimage;
+            window.service.chatpinImage = chatpinImage;
+            window.service.chatlatestpinImage = chatlatestpinImage;
+            window.service.eventpinImage = eventpinImage;
+            window.service.eventlatestpinimage = eventlatestpinimage;
+        };
+        
+    </script>
+</head>
+    <body>
+        <ul class="large-list float-left goal-list">
+            <li>
+                <p class="goal-value"><span id="num-contacts-all-time">0</span> st</p>
+                <p>Genererade Kundkontakter</p>
+            </li>
+            <li>
+                <p class="goal-value"><span id="num-contacts">0</span> st</p>
+                <p>Kundkontakter denna vecka</p>
+            </li>
+            <li>
+                <p class="goal-value"><span id="num-logins">0</span> st</p>
+                <p>Inloggningar denna vecka</p>
+            </li>
+        </ul>
+        <ul class="large-list leads-list float-right" id="leads-list"></ul>
+        <div id="map-canvas" ></div>
+        <audio style="display: none" src="@Url.Content("~/Content/Audio/notification.mp3")" autobuffer="autobuffer" id="notification" ></audio>
+    </body>
+
+    <script type="text/javascript">
+    var updateLeads = function () {
+        $.getJSON("/api/liveleads/contactsalltime", function (data) {
+            $("#num-contacts-all-time").text(data.numContacts);
+        });
+
+        $.getJSON("/api/liveleads/contactsthisweek", function (data) {
+            $("#num-contacts").text(data.numContacts);
+        });
+
+        $.getJSON("/api/liveleads/latest?take=7", function(data) {
+            var listIsEmpty = window.service.leadsList.length === 0;
+            if (listIsEmpty) {
+                document.getElementById("notification").play();
+                $(data).each(function(index, value) {
+                    var leadsElement = $('<li class="phone-lead"><div class="icon-background"><i></i></div><div class="leads-info"><span>' + value.clientName.substring(0, 37) + '</span></div></li>');
+                    $('#leads-list').append(leadsElement);
+                    var icon = null;
+                    var markerZIndex = 1;
+
+                    if (value.type.toLowerCase() === "phone") {
+                        leadsElement.find(".icon-background i").addClass("fa fa-phone");
+                        if (index === 0) {
+                            icon = window.service.phonelatestpinimage;
+                            markerZIndex = 1000000000;
+                        } else {
+                            icon = window.service.phonepinImage;
+
+                        }
+                    } else if (value.type.toLowerCase() === "email" || value.type.toLowerCase() === "mail") {
+                        leadsElement.find(".icon-background i").addClass("fa fa-envelope-o");
+                        if (index === 0) {
+                            icon = window.service.maillatestpinImage;
+                            markerZIndex = 1000000000;
+                        } else {
+                            icon = window.service.mailpinImage;
+                        }
+                    } else if (value.type.toLowerCase() === "event") {
+                        leadsElement.find(".icon-background i").addClass("fa fa-desktop");
+                        if (index === 0) {
+                            icon = window.service.eventlatestpinimage;
+                            markerZIndex = 1000000000;
+                        } else {
+                            icon = window.service.eventpinImage;
+                        }
+                    } else if (value.type.toLowerCase() === "chat") {
+                        leadsElement.find(".icon-background i").addClass("fa fa-comments-o");
+                        if (index === 0) {
+                            icon = window.service.chatlatestpinImage;
+                            markerZIndex = 1000000000;
+                        } else {
+                            icon = window.service.chatpinImage;
+                        }
+                    }
+
+                    var latLng = new google.maps.LatLng(value.latitude, value.longitude);
+                    var marker = new google.maps.Marker({
+                        position: latLng,
+                        map: window.service.map,
+                        icon: icon
+                    });
+
+                    window.service.leadsList.push({
+                        element: leadsElement,
+                        lead: value,
+                        zIndex: markerZIndex,
+                        marker: marker
+                    });
+                });
+            } else {
+                var newIds = _.map(data, function(lead) { return lead.id; });
+                var idsInList = _.map(window.service.leadsList, function(leadObject) { return leadObject.lead.id; });
+
+                var idsToAdd = _.difference(newIds, idsInList);
+                var idsToRemove = _.difference(idsInList, newIds);
+
+                $(idsToRemove).each(function(index, idToRemove) {
+                    var leadsObjectIndex = _.indexOf(_.map(window.service.leadsList, function(value) { return value.lead.id; }), idToRemove, false);
+                    var leadObject = window.service.leadsList[leadsObjectIndex];
+
+                    // remove element
+                    leadObject.element.slideUp("normal", function() { $(this).remove(); });
+
+                    // remove marker
+                    leadObject.marker.setMap(null);
+
+                    // remove from leadslist
+                    window.service.leadsList.splice(leadsObjectIndex, 1);
+                });
+
+                var isAddingNewLeads = idsToAdd.length > 0;
+                if (isAddingNewLeads) {
+                    document.getElementById("notification").play();
+                    $(window.service.leadsList).each(function(index, leadsObject) {
+                        if (leadsObject.marker.getIcon() === window.service.maillatestpinImage) {
+                            leadsObject.marker.setIcon(window.service.mailpinImage);
+                            leadsObject.marker.setZIndex(0);
+                        } else if (leadsObject.marker.getIcon() === window.service.phonelatestpinimage) {
+                            leadsObject.marker.setIcon(window.service.phonepinImage);
+                            leadsObject.marker.setZIndex(0);
+                        } else if (leadsObject.marker.getIcon() === window.service.chatlatestpinImage) {
+                            leadsObject.marker.setIcon(window.service.chatpinImage);
+                            leadsObject.marker.setZIndex(0);
+                        } else if (leadsObject.marker.getIcon() === window.service.eventlatestpinimage) {
+                            leadsObject.marker.setIcon(window.service.eventpinImage);
+                            leadsObject.marker.setZIndex(0);
+                        }
+                    });
+                }
+
+                // append new leads first assuming they are newer...
+                var objectsToAdd = _.filter(data, function(lead) { return idsToAdd.indexOf(lead.id) != -1; });
+
+                objectsToAdd = _.sortBy(objectsToAdd, function(lead) { return lead.date; });
+
+                $(objectsToAdd).each(function(index, value) {
+                    var isLatest = index === (objectsToAdd.length - 1);
+
+                    var leadsElement = $('<li class="phone-lead"><div class="icon-background"><i></i></div><div class="leads-info"><span>' + value.clientName.substring(0, 37) + '</span></div></li>');
+                    leadsElement.prependTo('#leads-list').hide().slideDown();
+
+                    var icon = null;
+                    var markerZIndex = 1;
+
+                    if (value.type.toLowerCase() === "phone") {
+                        leadsElement.find(".icon-background i").addClass("fa fa-phone");
+                        if (isLatest) {
+                            icon = window.service.phonelatestpinimage;
+                            markerZIndex = 1000000000;
+                        } else {
+                            icon = window.service.phonepinImage;
+
+                        }
+                    } else if (value.type.toLowerCase() === "email" || value.type.toLowerCase() === "mail") {
+                        leadsElement.find(".icon-background i").addClass("fa fa-envelope-o");
+                        if (isLatest) {
+                            icon = window.service.maillatestpinImage;
+                            markerZIndex = 1000000000;
+                        } else {
+                            icon = window.service.mailpinImage;
+                        }
+                    } else if (value.type.toLowerCase() === "event") {
+                        leadsElement.find(".icon-background i").addClass("fa fa-desktop");
+                        if (index === 0) {
+                            icon = window.service.eventlatestpinimage;
+                            markerZIndex = 1000000000;
+                        } else {
+                            icon = window.service.eventpinImage;
+                        }
+                    } else if (value.type.toLowerCase() === "chat") {
+                        leadsElement.find(".icon-background i").addClass("fa fa-comments-o");
+                        if (index === 0) {
+                            icon = window.service.chatlatestpinImage;
+                            markerZIndex = 1000000000;
+                        } else {
+                            icon = window.service.chatpinImage;
+                        }
+                    }
+
+                    var latLng = new google.maps.LatLng(value.latitude, value.longitude);
+                    var marker = new google.maps.Marker({
+                        position: latLng,
+                        map: window.service.map,
+                        zIndex: markerZIndex,
+                        icon: icon
+                    });
+
+                    window.service.leadsList.push({
+                        element: leadsElement,
+                        lead: value,
+                        marker: marker
+                    });
+                });
+
+                // hack to force css update off all elements, chrome bugg where li:first child was evaluated true for two elements
+                $(window.service.leadsList).each(function(index, value) {
+                    value.element.toggleClass("not-a-used-class");
+                });
+            }
+        }).error(function(error) {
+            if (error.status == 401) {
+                window.location.reload();
+            }
+        });
+    };
+
+    var updateGoals = function() {
+        $.getJSON("/api/liveleads/loggedinthisweek", function (data) {
+            $("#num-logins").text(data.numLogins);
+        }).error(function (error) {
+            if (error.status == 401) {
+                window.location.reload();
+            }
+        });
+    };
+
+    $(function () {
+        window.service = {};
+        window.service.leadsList = [];
+        initialize();
+        updateLeads();
+        setInterval(updateLeads, 5000);
+        updateGoals();
+        setInterval(updateGoals, 1000 * 60 * 5);
+    });
+        
+</script>
+</html>

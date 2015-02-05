@@ -1,0 +1,123 @@
+﻿@model InsideReporting.Controllers.SiriusReportModel
+
+@{
+    ViewBag.Title = "Resultat";
+    Layout = "/Views/Layout/_Sirius.cshtml";
+}
+
+<header class="header-container header-container-active" id="header-filter-container">
+    <div class="left-menu">
+        <button class="toggle-sidebar btn-icon-only btn-empty"><i class="fa fa-bars" style=""></i></button>
+    </div>
+
+    <div class="dropdown middle-menu" style="display:inline-block;">
+        <a href="#" class="active-item menu-item dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown">
+            <span class="menu-header-text">Alla Kontakter </span>
+            <i class="fa fa-caret-down"></i>
+        </a>
+        <ul class="dropdown-menu dropdown-menu-large" role="menu" aria-labelledby="dropdownMenu1" style="max-height: 400px; min-width: 160px;">
+            <li class="current" role="presentation"><a class="dropdown-menu-item"  role="menuitem" tabindex="-1" href="/report/@Model.ClientId/contact" data-text="Alla Kontakter">Alla Kontakter</a></li>
+            <li class="divider" role="presentation"></li>
+            <li role="presentation"><a class="dropdown-menu-item"  role="menuitem" tabindex="-1" href="/report/@Model.ClientId/contact?status=new" data-text="Nya Kontakter">Nya Kontakter</a></li>
+            <li class="divider" role="presentation"></li>
+            <li role="presentation"><a class="dropdown-menu-item" role="menuitem" tabindex="-1" href="/report/@Model.ClientId/contact?type=Phone" data-text="Telefon">Telefon</a></li>
+            <li role="presentation"><a class="dropdown-menu-item" role="menuitem" tabindex="-1" href="/report/@Model.ClientId/contact?type=Chat" data-text="Chat">Chat</a></li>
+            <li role="presentation"><a class="dropdown-menu-item" role="menuitem" tabindex="-1" href="/report/@Model.ClientId/contact?type=Email" data-text="E-post">E-post</a></li>
+            @if (Model.HasCustomEvents)
+            {
+                <li role="presentation"><a class="dropdown-menu-item" role="menuitem" tabindex="-1" href="/report/@Model.ClientId/contact?type=Event" data-text="Event">Event</a></li>
+            }
+            <li class="divider" role="presentation"></li>
+            <li role="presentation"><span class="dropdown-menu-item" role="menuitem" tabindex="-1" href="#" id="show-contact-labels">Etiketter <i class="fa fa-caret-right"></i></span></li>
+            <li class="divider" role="presentation"></li>
+            <li class="labels" role="presentation"><a class="dropdown-menu-item" role="menuitem" tabindex="-1" href="/report/@Model.ClientId/contact?product=Search" data-text="Search">Search</a></li>
+            <li class="labels" role="presentation"><a class ="dropdown-menu-item" role="menuitem" tabindex="-1" href="/report/@Model.ClientId/contact?product=Display" data-text="Display">Display</a></li>
+            <li class="labels" role="presentation"><a class="dropdown-menu-item" role="menuitem" tabindex="-1" href="/report/@Model.ClientId/contact?product=Retargeting" data-text="Retargeting">Retargeting</a></li>
+            <li class="labels" role="presentation"><a class="dropdown-menu-item" role="menuitem" tabindex="-1" href="/report/@Model.ClientId/contact?product=Organic" data-text="Organic">Organic</a></li>
+        </ul>
+    </div>
+</header>
+
+<header class="header-container header-container-select" id="header-select-container" style="display: none;">
+   
+</header>
+
+<section class="main-content" id="main-content">
+    <div class="row" style="max-width:1300px;min-height:100%;">
+        <div class="col-xs-12" style="min-height:100%">
+            <header class="hidden-when-header">
+                <h2 >
+                    <span id="text">Mina kontakter</span>
+                    <div id="filter-groups" class="labels-container">
+                    </div>
+                    <button id="export-all-contacts" type="button" class="btn btn-default pull-right">Exportera <i class="fa fa-cloud-download"></i></button>
+                    <div class="dropdown dropdown-lg" id="tag-menu">
+                        <a type="button" class="btn btn-default dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown">Etiketter <i class="fa fa-tag"></i></a>
+                    </div>
+                </h2>
+            </header>
+            <section class="widget">
+                <div class="container-fluid" id="contact-table">
+                </div>
+                
+                <div id="contact-list">
+                </div>
+            </section>
+        </div>
+    </div>
+</section>
+
+
+@section scripts{
+
+    <script type="text/javascript">
+        $(function () {
+            $('body').screenresize();
+
+            $('body').reportselector({
+                clientId: '@Model.ClientId'
+            });
+
+            $('body').contactdata();
+            $('body').selecteddata();
+            $('#header-select-container').selectHeader();
+            $('#contact-table').contacttable();
+            $('#contact-list').contactlist();
+            $('#tag-menu').selectMenu();
+            $('#contact-link').addClass('active');
+
+            $('#export-all-contacts').click(function() {
+                $(document).trigger('showExportModal');
+            });
+
+            $('.dropdown-menu-large .labels').hide();
+            $('#show-contact-labels').on("click", function (event) {
+                event.preventDefault();
+                event.stopPropagation();
+                $('.dropdown-menu-large .labels').toggle();
+                if ($('#show-contact-labels i').hasClass('fa-caret-right')) {
+                    $('#show-contact-labels i').removeClass('fa-caret-right').addClass('fa-caret-down');
+                } else {
+                    $('#show-contact-labels i').removeClass('fa-caret-down').addClass('fa-caret-right');
+                }
+            });
+
+            $('.dropdown').ReportFilter(function (headerText) {
+                if (headerText.toLowerCase() != "alla kontakter") {
+                    $('header span#text').html("Mina Kotakter:");
+                    $('#filter-groups').append(' <a href="/report/' + '@Model.ClientId' + '/contact" class="btn btn-default"><i class="fa fa-times" style="padding-right: 4px;"></i>' + headerText + '</a>');
+                }
+            });
+
+
+            $(document).bind("selectedItemsChanged", function (event, items) {
+                if (items.selected.length > 0) {
+                    $('#header-filter-container').hide();
+                } else {
+                    $('#header-filter-container').show();
+                }
+            });
+    });
+    </script>
+}
+

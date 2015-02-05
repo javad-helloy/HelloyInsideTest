@@ -1,0 +1,50 @@
+﻿@model InsideReporting.Models.AccountManagerViewModel
+
+@{
+    ViewBag.Title = "Skapa ny Kontoansvarig";
+    Layout = "/Views/Layout/_SiriusTopMenu.cshtml";
+}
+
+<h2>Skapa ny Kontoansvarig</h2>
+
+<div class="panel panel-default">
+    <div class="panel-body">
+        @using (Html.BeginForm(new { @role = "form" }))
+        {
+            @Html.ValidationSummary(true)
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Name)
+                        @Html.TextBoxFor(model => Model.Name, new { @class = "form-control"})
+                        @Html.ValidationMessageFor(model => model.Name)
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Password)
+                        @Html.PasswordFor(model => model.Password, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Password)
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Phone)
+                        @Html.TextBoxFor(model => model.Phone, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Phone)
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Email)
+                        @Html.TextBoxFor(model => model.Email, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Email)
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ImageUrl)
+                        @Html.TextBoxFor(model => model.ImageUrl, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.ImageUrl)
+                    </div>
+                </div>
+            </div>
+            <input type="submit" value="Spara" class="btn btn-primary" />
+        }
+    </div>
+</div>
+<div>
+    @Html.ActionLink("Tillbaka till listan", "Index")
+</div>

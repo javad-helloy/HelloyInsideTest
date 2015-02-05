@@ -1,0 +1,48 @@
+.budget-list{
+	list-style:none;
+	padding-left: 0;
+
+	& table{
+		
+	}
+
+	& .fa-calendar{
+		font-size: 40px;
+		color: @gray-light;
+	}
+
+	& li{
+		&.passed table{
+			opacity:0.7;
+			
+			& .large-value, & .label{
+				opacity: 0.7;
+			}
+		}
+	}
+}
+
+table.table-centered{
+	table-layout: fixed;
+	width: 100%;
+
+	& td{
+		text-align: center;
+		vertical-align: middle;
+	}
+}
+
+@media all and (max-width: 480px){
+	.budget-list li{
+        overflow-x: auto;
+        & table.columns-7 {
+            width: 140%;
+            
+        }
+	}
+
+    .budget-list li:last-child{
+        overflow-x: hidden;
+        
+	}
+}

@@ -1,0 +1,141 @@
+@audioPlayerHeight:75px;
+@audioPlayerComponentWidth:80px;
+@audioPlayerComponentPadding:15px;
+
+@audioPlayerMiniHeight:55px;
+@audioPlayerMiniComponentWidth:40px;
+@audioPlayerMiniComponentPadding:10px;
+
+
+.audio-player{
+	position: relative;
+	width: 100%;
+	
+	height: @audioPlayerHeight;
+
+	background: white;
+
+	border-radius: @border-radius-base;
+	margin: 0;
+
+	& .play-button, .start-button{
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		height: @audioPlayerHeight;
+		width: @audioPlayerComponentWidth;
+
+		text-align: center;
+		padding: @audioPlayerComponentPadding;
+		border-right: 1px solid @gray-light;
+
+        & button{
+			&:focus, &:active {
+				outline: none;
+				border: none;
+			}	
+			box-shadow: none;
+            background: transparent !important;
+		}
+	}
+
+	& .audio-seek{
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		left: @audioPlayerComponentWidth;
+		right: @audioPlayerComponentWidth;
+		
+		padding: @audioPlayerComponentPadding;
+
+		& .progress{
+			margin-bottom: 5px;
+            cursor: pointer;
+		}
+	}
+
+	& .volume-button{
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		right: 0;
+		height: @audioPlayerHeight;
+		width: @audioPlayerComponentWidth;
+
+		text-align: left;
+		padding: @audioPlayerComponentPadding;
+		border-left: 1px solid @gray-light;
+        
+		& button{
+			&:focus, &:active {
+				outline: none;
+				border: none;
+			}	
+			box-shadow: none;
+            background: transparent !important;
+		}
+	}
+    
+	& .btn {
+		padding: 0;
+		height: 40px;
+		font-size: 40px;	
+		line-height: 40px;	
+		i.fa{
+			font-size: 40px;	
+			line-height: 40px;	
+		}
+	}
+
+    &.mini{
+        height: @audioPlayerMiniHeight;
+        margin: 0;
+
+        & .play-button, .start-button{
+		
+		    height: @audioPlayerMiniHeight;
+		    width: @audioPlayerMiniComponentWidth;
+	    }
+
+        & .audio-seek{
+		    left: @audioPlayerMiniComponentWidth;
+		    right: @audioPlayerMiniComponentWidth+ floor(@audioPlayerComponentWidth/15);
+		    padding: @audioPlayerMiniComponentPadding;
+	    }
+
+	    & .volume-button{
+		   
+		    height: @audioPlayerMiniHeight;
+		    width: @audioPlayerMiniComponentWidth+ floor(@audioPlayerComponentWidth/15);
+	    }
+
+        & .progress{
+			margin-bottom: 2px;
+		}
+
+        & .btn {
+		    position: absolute;
+            left: 10px;
+            top: 5px;
+		    i.fa{
+			    font-size: 30px;	
+			    line-height: 30px;	
+		    }
+	    }
+    }	
+
+}
+
+.btn.btn-inverted{
+	background: transparent;
+	border: none;
+
+	&.btn-info{
+		color: @helloy-blue;
+	}
+
+	&.btn-default{
+		color: @gray;
+	}
+}

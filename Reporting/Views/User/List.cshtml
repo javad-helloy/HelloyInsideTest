@@ -1,0 +1,65 @@
+﻿@using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder
+@model InsideReporting.Models.User.UserListViewModel
+
+@{
+    ViewBag.Title = "Inloggningar";
+    Layout = "/Views/Layout/_Sirius.cshtml";
+}
+
+<section class="main-content" id="main-content">
+    <div class="row" style="max-width:1300px;min-height:100%;">
+        <div class="col-xs-12" style="min-height:100%">
+            <header class="hidden-when-header">
+                <h2>
+                    <span id="text">Inloggningar</span>
+                    <div id="filter-groups" class="labels-container">
+                    </div>
+                    <a href="/User/Create?clientId=@Model.ClientId" class="btn btn-default pull-right">Skapa ny <i class="fa fa-user"></i></a>
+                </h2>
+            </header>
+            <section class="widget">
+                <table class="icon-list table interactable" id="user-table">
+                    <thead>
+                        <tr>
+                            <td></td>
+                            <td><span>Epost</span></td>
+                            <td><span>Telefon</span></td>
+                            <td style="text-align:center;"><span>Får Epost</span></td>
+                            <td style="text-align:center;"><span>Får SMS</span></td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            foreach (var user in Model.Users)
+                            {
+                                <tr class="@(user.IsLockedOut ? "row-disabled" : "")" data-user-id="@user.Id">
+                                    <td>
+                                        @if (user.IsLockedOut)
+                                        {<i class="fa fa-lock"></i>}
+                                </td>
+                                <td>@user.Name</td>
+                                <td>@user.Phone</td>
+                                <td style="text-align:center;">@if (user.ReceiveEmail)
+                                {<span><i class="fa fa-check"></i></span>}</td>
+                                <td style="text-align:center;">@if (user.ReceiveSms)
+                                {<span><i class="fa fa-check"></i></span>}</td>
+                                <td><span id="delete-login"><i class="fa fa-trash"></i></span></td>
+                            </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </section>
+        </div>
+    </div>
+</section>
+
+<script>
+    $(function () {
+        $('#client-logins-link').addClass('active');
+        $("#user-table tbody tr").click(function () {
+            var userId = $(this).data("user-id");
+            window.location = "/user/edit?id=" + userId;
+        });
+    });
+</script>

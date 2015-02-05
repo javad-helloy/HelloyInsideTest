@@ -1,0 +1,45 @@
+﻿@model InsideReporting.Models.LabelsViewModel
+
+@{
+    ViewBag.Title = "Hantera Label";
+    Layout = "/Views/Layout/_SiriusTopMenu.cshtml";
+}
+<h4>Lägg till ny Label</h4>
+<div class="panel panel-default">
+    <div class="panel-body">
+        <form action="/label/create/" method="post" class="form-inline" role="form">
+            <div class="form-group">
+                <label class="sr-only" for="month">Label Namn</label>
+                <input name="name" type="text" class="form-control" id="name" placeholder="Label namn">
+            </div>
+            <button type="submit" class="btn btn-primary">Skapa</button>
+        </form>
+    </div>
+</div>
+
+<h4>Existerande Labels</h4>
+<table id="table" class="table">
+    <thead>
+        <tr>
+            <th>
+                <p>Id</p>
+
+            </th>
+            <th>
+                <p>Label</p>
+            </th>
+            <th>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var label in Model.Labels)
+        {
+            <tr>
+                <td>@label.Id</td>
+                <td>@label.Name</td>
+                <td><a href="/Label/Delete?labelId=@label.Id" class="pull-right" title="Ta bort"><i class="fa fa-trash-o"></i></a></td>
+            </tr>
+        }
+    <tbody>
+</table>

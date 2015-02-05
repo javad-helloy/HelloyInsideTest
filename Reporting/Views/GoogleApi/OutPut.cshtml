@@ -1,0 +1,20 @@
+﻿@model InsideReporting.Controllers.External.GoogleApiCodeResponse
+
+@{
+    ViewBag.Title = "Google Api";
+    Layout = "/Views/Layout/_SiriusNoMenu.cshtml";
+}
+
+<h2>Google Api</h2>
+
+    @Html.LabelFor(model => model.Response)
+    @Html.TextBoxFor(model => model.Response, new {@class = "form-control", @readonly = "true"})
+
+<a href="@Url.Action("GetToken", new { code = @Model.Response})" class="btn btn-primary">Request Code</a>
+
+
+
+<script type="text/javascript">
+   
+
+</script>

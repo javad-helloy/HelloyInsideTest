@@ -1,0 +1,148 @@
+﻿@model InsideReporting.Models.ChatViewModel
+
+@{
+    ViewBag.Title = "Create new Chat Leads";
+    Layout = "/Views/Layout/_SiriusTopMenu.cshtml";
+}
+
+<h2>Skapa ny Chat Lead</h2>
+
+<div class="panel panel-default">
+    <div class="panel-body">
+        @using (Html.BeginForm(new { @role = "form" }))
+        {
+            @Html.ValidationSummary(true)
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.LiveChatId)
+                        @Html.TextBoxFor(model => model.LiveChatId, new { @class = "form-control", @readonly = "true" })
+                        @Html.ValidationMessageFor(model => model.LiveChatId)
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ClientName)
+                        @Html.DropDownListFor(model => Model.ClientId, (SelectList)ViewBag.ClientIds, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.ClientName)
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Date)
+                        @Html.TextBoxFor(model => model.Date, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Date)
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Description)
+                        @Html.TextAreaFor(model => model.Description, 4, 20, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Description)
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Email)
+                        @Html.TextBoxFor(model => model.Email, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Email)
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Phone)
+                        @Html.TextBoxFor(model => model.Phone, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Phone)
+                    </div>
+                </div>
+
+                <div class="col-md-6" id="live-chat-container">
+                    @Html.Label("Pick a Chat")
+                    <div style="overflow-y: scroll; height: 534px;">
+                        <table id="event-table" class="table large-list"></table>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-md-6" >
+                </div>
+                <div class="col-md-6" id="page-counter">
+                </div>
+            </div>
+            <input type="submit" value="Skapa" class="btn btn-primary" />
+        }
+    </div>
+</div>
+
+<div>
+    @Html.ActionLink("Tillbaka till listan", "Index")
+</div>
+                  
+<script type="text/javascript">
+    $(function () {
+        
+        var date = new Date();
+        var now = date.getFullYear() + "-" + ("0" + (date.getMonth() + 1)).slice(-2) + "-" + ("0" + date.getDate()).slice(-2) + " " + ("0" + date.getHours()).slice(-2) + ":" + ("0" + date.getMinutes()).slice(-2);
+        $('#Date').val(now);
+
+        var fromDate = new Date();
+        fromDate.setDate(fromDate.getDate() - 2);
+        fromDate = fromDate.getFullYear() + "-" + ("0" + (fromDate.getMonth() + 1)).slice(-2) + "-" + ("0" + fromDate.getDate()).slice(-2);
+
+        var chatContainer = $('#live-chat-container');
+        var table = $('#event-table');
+        
+        var getChatData = function (pageNumber, dateFrom) {
+            chatContainer.addClass("loading");
+            var url = '/Chat/ChatMessages' + '/?' + $.param({
+                page: pageNumber,
+                fromDate: dateFrom
+            });
+            $.getJSON(url, function (data) {
+                updateList(data);
+                updatePageNumber(data.pages);
+            });
+        };
+
+        var updateList = function(data) {
+            var chatList = "";
+            table.html("");
+            $.each(data.chats, function(index, item) {
+                var messages = "";
+                $.each(item.messages, function(i, value) {
+                    messages += value.text + " ";
+                });
+                chatList = '<tr data-chat-id="' + item.id + '">' +
+                    '<td>' + item.id + '</td>' +
+                    '<td id="chat-message">' +
+                    '<p>' + messages + '</p>' +                        
+                    '</td>' +
+                    '</tr>';
+                table.append(chatList);
+            });
+            table.find('tr').click(function() {
+                var chatId = $(this).data("chat-id");
+                table.find('tr').removeClass("success");
+                $(this).addClass("success");
+                if (chatId) {
+                    $('#LiveChatId').val(chatId);
+                    var description = $(this).find('#chat-message').text();
+                    $('#Description').text(description);
+                }
+            });
+            chatContainer.removeClass("loading");
+        };
+
+        var updatePageNumber = function(pages) {
+            var pageNumbers = parseInt(pages, 10);
+            var pageNumberContainer = $('#page-counter');
+            
+            if (pageNumberContainer.find('a').length === 0) {
+                for (var i = 1; i <= pageNumbers; i++) {
+                    pageNumberContainer.append('<a href="#" data-page-number="' + i + '" class="btn">' + i + '</a>');
+                }
+                pageNumberContainer.children("a:first").addClass("btn-success");
+                pageNumberContainer.find('a').click(function() {
+                    pageNumberContainer.find('a').removeClass("btn-success");
+                    $(this).addClass("btn-success");
+                    var page = $(this).data("page-number");
+                    getChatData(page, fromDate);
+                });
+            }
+        };
+        
+        getChatData(1, fromDate);
+        
+    })
+</script>
