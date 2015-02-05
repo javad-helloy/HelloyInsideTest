@@ -11,7 +11,7 @@ namespace InsideReporting.App_start
     {
         public override void Log(ExceptionLoggerContext context)
         {
-           NewRelic.Api.Agent.NewRelic.NoticeError(context.Exception);
+           //NewRelic.Api.Agent.NewRelic.NoticeError(context.Exception);
            Trace.TraceError(context.ExceptionContext.Exception.ToString());
         }
     }

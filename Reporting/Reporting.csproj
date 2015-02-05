@@ -197,10 +197,6 @@
     <Reference Include="Microsoft.WindowsAzure.StorageClient, Version=1.7.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.WindowsAzure.Jobs.Host.0.1.0-alpha1\lib\net45\Microsoft.WindowsAzure.StorageClient.dll</HintPath>
     </Reference>
-    <Reference Include="NewRelic.Api.Agent, Version=3.10.43.0, Culture=neutral, PublicKeyToken=06552fced0b33d87, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\NewRelic.Azure.WebSites.3.10.43.0\lib\NewRelic.Api.Agent.dll</HintPath>
-    </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Newtonsoft.Json.6.0.5\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -460,16 +456,6 @@
     <Content Include="Content\Sirius\js\hammer.min.js" />
     <Content Include="Content\Sirius\js\popover.js" />
     <Content Include="Global.asax" />
-    <Content Include="newrelic\extensions\CoreInstrumentation.xml" />
-    <Content Include="newrelic\extensions\Providers\TransactionContext\Asp\NewRelic.Agent.Extensions.dll" />
-    <Content Include="newrelic\extensions\Providers\TransactionContext\Asp\NewRelic.Providers.TransactionContext.Asp.Repacked.dll" />
-    <Content Include="newrelic\extensions\Providers\TransactionContext\Default\NewRelic.Agent.Extensions.dll" />
-    <Content Include="newrelic\extensions\Providers\TransactionContext\Default\NewRelic.Providers.TransactionContext.Default.Repacked.dll" />
-    <Content Include="newrelic\extensions\Providers\TransactionContext\Wcf3\NewRelic.Agent.Extensions.dll" />
-    <Content Include="newrelic\extensions\Providers\TransactionContext\Wcf3\NewRelic.Providers.TransactionContext.Wcf3.Repacked.dll" />
-    <Content Include="newrelic\NewRelic.Agent.Core.dll" />
-    <Content Include="newrelic\NewRelic.Agent.Extensions.dll" />
-    <Content Include="newrelic\NewRelic.Profiler.dll" />
     <Content Include="robots.txt" />
     <Content Include="ScriptsExternal\bootstrap.min.js" />
     <Content Include="ScriptsExternal\hammer.js" />
@@ -478,9 +464,6 @@
     <Content Include="ScriptsExternal\jquery-ui-factory.min.js" />
     <Content Include="ScriptsExternal\jquery.validate.js" />
     <Content Include="ScriptsExternal\jquery.validate.unobtrusive.js" />
-    <Content Include="newrelic\newrelic.config">
-      <SubType>Designer</SubType>
-    </Content>
     <Content Include="Content\Sirius\bootstrap\alerts.less" />
     <Content Include="Content\Sirius\bootstrap\badges.less" />
     <Content Include="Content\Sirius\bootstrap\breadcrumbs.less" />
@@ -622,13 +605,7 @@
     <Content Include="Content\Sirius\components\date.less" />
     <Content Include="Content\Sirius\components\toggle-button.less" />
     <Content Include="Content\Sirius\components\data-table.less" />
-    <Content Include="newrelic\extensions\extension.xsd">
-      <SubType>Designer</SubType>
-    </Content>
     <Content Include="Content\Sirius\components\scoring.less" />
-    <None Include="newrelic\newrelic.xsd">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="Properties\PublishProfiles\insidetest - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\insidetest - Web Deploy.pubxml" />
     <Content Include="ScriptsExternal\modernizr-2.6.2.js" />

@@ -11,7 +11,7 @@ namespace InsideReporting.App_start
     {
         public void OnException(ExceptionContext filterContext)
         {
-            NewRelic.Api.Agent.NewRelic.NoticeError(filterContext.Exception);
+            //NewRelic.Api.Agent.NewRelic.NoticeError(filterContext.Exception);
             Trace.TraceError(filterContext.Exception.Message);
         }
     }
