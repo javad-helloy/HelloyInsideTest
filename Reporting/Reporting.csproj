@@ -369,6 +369,9 @@
     <Compile Include="Controllers\Data\TaskController.cs" />
     <Compile Include="Controllers\Data\TrackController.cs" />
     <Compile Include="Controllers\DevController.cs" />
+    <Compile Include="Controllers\Dev\Dev1Controller.cs" />
+    <Compile Include="Controllers\Dev\Dev2Controller.cs" />
+    <Compile Include="Controllers\Dev\Dev3Controller.cs" />
     <Compile Include="Controllers\Enity\BudgetController.cs" />
     <Compile Include="Controllers\Enity\AccountManagerController.cs" />
     <Compile Include="Controllers\Enity\ClientController.cs" />
@@ -652,6 +655,7 @@
     <Content Include="Views\GoogleApi\Index.cshtml" />
     <Content Include="Views\GoogleApi\OutPut.cshtml" />
     <Content Include="Views\GoogleApi\Success.cshtml" />
+    <Content Include="Views\Dev1\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
